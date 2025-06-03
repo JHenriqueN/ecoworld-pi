@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Área Protegida - EcoWorld</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      background-color: #0056b3;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    header a:hover {
+      background-color: #004494;
+    }
+
+    .main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .card p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f1f1f1;
+      color: #666;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>EcoWorld</h1>
+    <a href="eco-world.html">Sair</a>
+  </header>
+    <script>
+    // Pega os dados armazenados
+    const nome = localStorage.getItem('userName');
+    const email = localStorage.getItem('userEmail');
+    const foto = localStorage.getItem('userPicture');
+
+    // Mostra os dados na página
+    document.getElementById('nome').textContent = nome;
+    document.getElementById('email').textContent = email;
+    document.getElementById('foto').src = foto;
+
+    // Botão de sair
+    function sair() {
+      localStorage.clear(); // Remove dados salvos
+      window.location.href = 'index.html'; // Volta à página inicial
+    }
+  </script>
+
+  <div class="main">
+    <div class="card">
+      <h2>Bem-vindo!</h2>
+      <p>Parabéns! Você está acessando uma área exclusiva da EcoWorld. Aqui você poderá acompanhar suas atividades, dados ambientais e muito mais.</p>
+    </div>
+
+    <div class="card">
+      <h2>Seu Impacto Positivo</h2>
+      <p>Você já economizou 235 litros de água e reduziu 18kg de CO₂ com suas ações sustentáveis. Continue assim!</p>
+    </div>
+
+    <div class="card">
+      <h2>Últimas Notícias</h2>
+      <p>🌱 Projeto de reflorestamento começa na região sudeste. <br/>
+         🔋 Nova tecnologia promete baterias ecológicas. <br/>
+         ♻️ Dicas práticas para reduzir o consumo de plástico em casa.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 EcoWorld. Todos os direitos reservados.
+  </footer>
+
+</body>
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+
+    // Simulação de login válido
+    if (email === 'teste@email.com' && senha === '123456') {
+      window.location.href = 'pagina_protegida.html'; // Vai para a segunda página
+    } else {
+      alert('Credenciais inválidas');
+    }
+  });
+</script>
+
+</html>
