@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz EcoWorld - 10 Perguntas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #a8edea, #fed6e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .quiz-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 2rem;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+    .option {
+      background: #e0f7fa;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .option:hover {
+      background: #b2ebf2;
+    }
+    .option.selected {
+      border-color: #007bff;
+      background: #bbdefb;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <h2 id="question">Pergunta aparecerá aqui</h2>
+
+    <div id="options">
+      <!-- Opções serão criadas aqui -->
+    </div>
+
+    <button id="submitBtn" disabled>Responder</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const quiz = [
+      {
+        question: "Qual é o principal objetivo do projeto EcoWorld?",
+        options: [
+          "Promover o consumo excessivo",
+          "Incentivar ações sustentáveis e preservar o meio ambiente",
+          "Aumentar a poluição nas cidades",
+          "Explorar recursos naturais sem controle"
+        ],
+        correct: 1
+      },
+      {
+        question: "Qual ação ajuda a economizar água, um dos temas do EcoWorld?",
+        options: [
+          "Deixar a torneira aberta enquanto escova os dentes",
+          "Reutilizar a água da chuva para regar plantas",
+          "Descartar óleo de cozinha na pia",
+          "Lavar o carro todos os dias com mangueira ligada"
+        ],
+        correct: 1
+      },
+      {
+        question: "Qual gás produzido pela queima de combustíveis fósseis contribui para o efeito estufa?",
+        options: ["Oxigênio", "Dióxido de carbono (CO₂)", "Nitrogênio", "Hélio"],
+        correct: 1
+      },
+      {
+        question: "O que significa reciclar?",
+        options: [
+          "Descartar lixo na rua",
+          "Queimar materiais",
+          "Transformar materiais usados em novos produtos",
+          "Jogar tudo no lixo orgânico"
+        ],
+        correct: 2
+      },
+      {
+        question: "Qual destas ações reduz o consumo de plástico em casa?",
+        options: [
+          "Usar sacolas plásticas descartáveis",
+          "Comprar produtos com embalagem reciclável",
+          "Jogar plástico no lixo comum",
+          "Comprar plástico novo sempre"
+        ],
+        correct: 1
+      },
+      {
+        question: "Qual fonte de energia é renovável e muito usada no Brasil?",
+        options: ["Carvão", "Energia hidrelétrica", "Petróleo", "Gás natural"],
+        correct: 1
+      },
+      {
+        question: "Como o EcoWorld ajuda você a acompanhar seu impacto ambiental?",
+        options: [
+          "Mostrando dicas para aumentar o consumo de água",
+          "Indicando quanto você economizou de água e reduziu CO₂",
+          "Ensinando a descartar lixo em qualquer lugar",
+          "Incentivando o uso de carros poluentes"
+        ],
+        correct: 1
+      },
+      {
+        question: "Qual dessas é uma ação sustentável para reduzir a poluição?",
+        options: [
+          "Usar transporte público ou bicicleta",
+          "Andar sozinho de carro em viagens curtas",
+          "Queimar lixo em casa",
+          "Desmatar áreas verdes"
+        ],
+        correct: 0
+      },
+      {
+        question: "O que é reflorestamento, tema presente nas notícias do EcoWorld?",
+        options: [
+          "Cortar árvores para construir casas",
+          "Plantar árvores em áreas desmatadas para restaurar o ambiente",
+          "Queimar florestas para limpeza",
+          "Construir fábricas em áreas verdes"
+        ],
+        correct: 1
+      },
+      {
+        question: "Como você pode reduzir o consumo de energia em casa?",
+        options: [
+          "Deixar aparelhos ligados sem uso",
+          "Trocar lâmpadas comuns por LED",
+          "Manter ar-condicionado ligado 24h",
+          "Abrir janelas com ar ligado"
+        ],
+        correct: 1
+      }
+    ];
+
+    let currentQuestion = 0;
+    let selectedOption = null;
+    let score = 0;
+    let quizEnded = false;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultEl = document.getElementById('result');
+
+    function loadQuestion() {
+      resultEl.textContent = '';
+      selectedOption = null;
+      submitBtn.disabled = true;
+
+      const q = quiz[currentQuestion];
+      questionEl.textContent = `Questão ${currentQuestion + 1}: ${q.question}`;
+      optionsEl.innerHTML = '';
+
+      q.options.forEach((option, index) => {
+        const div = document.createElement('div');
+        div.classList.add('option');
+        div.textContent = option;
+        div.addEventListener('click', () => selectOption(index, div));
+        optionsEl.appendChild(div);
+      });
+    }
+
+    function selectOption(index, element) {
+      [...optionsEl.children].forEach(opt => opt.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedOption = index;
+      submitBtn.disabled = false;
+      resultEl.textContent = '';
+    }
+
+    submitBtn.addEventListener('click', () => {
+      if (!quizEnded) {
+        if (selectedOption === null) return;
+
+        const correctIndex = quiz[currentQuestion].correct;
+
+        if (selectedOption === correctIndex) {
+          score++;
+          resultEl.textContent = 'Resposta correta! 🎉';
+          resultEl.style.color = 'green';
+        } else {
+          resultEl.textContent = `Resposta errada! A correta é: "${quiz[currentQuestion].options[correctIndex]}"`;
+          resultEl.style.color = 'red';
+        }
+
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          currentQuestion++;
+          if (currentQuestion < quiz.length) {
+            loadQuestion();
+          } else {
+            showFinalScore();
+          }
+        }, 1500);
+
+      } else {
+        // Reiniciar quiz
+        currentQuestion = 0;
+        score = 0;
+        quizEnded = false;
+        submitBtn.textContent = 'Responder';
+        loadQuestion();
+      }
+    });
+
+    function showFinalScore() {
+      quizEnded = true;
+      questionEl.textContent = `Quiz finalizado! Você acertou ${score} de ${quiz.length} perguntas.`;
+
+      let mensagem = score >= 7
+        ? "Parabéns! Você está mandando muito bem!"
+        : "Você precisa se dedicar mais ao meio ambiente.";
+
+      optionsEl.innerHTML = `<p class="result">${mensagem}</p>`;
+      resultEl.textContent = '';
+      submitBtn.textContent = 'Reiniciar Quiz';
+      submitBtn.disabled = false;
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

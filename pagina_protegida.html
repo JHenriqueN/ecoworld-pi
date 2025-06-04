@@ -65,6 +65,24 @@
       line-height: 1.6;
     }
 
+    /* Estilo do botão adicionado */
+    #meuBotao {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #meuBotao:hover {
+      background-color: #0056b3;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -80,16 +98,17 @@
     <h1>EcoWorld</h1>
     <a href="eco-world.html">Sair</a>
   </header>
-    <script>
+
+  <script>
     // Pega os dados armazenados
     const nome = localStorage.getItem('userName');
     const email = localStorage.getItem('userEmail');
     const foto = localStorage.getItem('userPicture');
 
     // Mostra os dados na página
-    document.getElementById('nome').textContent = nome;
-    document.getElementById('email').textContent = email;
-    document.getElementById('foto').src = foto;
+    document.getElementById('nome')?.textContent = nome;
+    document.getElementById('email')?.textContent = email;
+    document.getElementById('foto')?.src = foto;
 
     // Botão de sair
     function sair() {
@@ -116,27 +135,39 @@
          ♻️ Dicas práticas para reduzir o consumo de plástico em casa.
       </p>
     </div>
+
+    <!-- Botão adicionado aqui -->
+    <button id="meuBotao">Iniciar</button>
+    <script>
+  document.getElementById('meuBotao').addEventListener('click', function() {
+    window.location.href = 'quiz.html'; // aqui o nome do arquivo do quiz
+  });
+</script>
   </div>
 
   <footer>
     &copy; 2025 EcoWorld. Todos os direitos reservados.
   </footer>
 
+  <script>
+    document.getElementById('meuBotao').addEventListener('click', function() {
+      alert('Iniciando o ECOWORLD!');
+    });
+
+    document.getElementById('loginForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+
+      // Simulação de login válido
+      if (email === 'teste@email.com' && senha === '123456') {
+        window.location.href = 'pagina_protegida.html'; // Vai para a segunda página
+      } else {
+        alert('Credenciais inválidas');
+      }
+    });
+  </script>
+
 </body>
-<script>
-  document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
-
-    // Simulação de login válido
-    if (email === 'teste@email.com' && senha === '123456') {
-      window.location.href = 'pagina_protegida.html'; // Vai para a segunda página
-    } else {
-      alert('Credenciais inválidas');
-    }
-  });
-</script>
-
 </html>
