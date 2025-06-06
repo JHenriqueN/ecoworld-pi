@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<!-- INÍCIO DO HTML -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Desenvolvedores EcoWorld</title>
 
-  <!-- Google Fonts -->
+  <!-- Importação da fonte Poppins do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- Font Awesome para ícones -->
+  <!-- Font Awesome para ícones (árvore, folha, etc.) -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   />
 
-  <!-- Biblioteca AOS (Animação ao rolar) -->
+  <!-- Biblioteca AOS (Animações ao rolar a página) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <!-- Início do bloco CSS -->
+  <!-- INÍCIO DO CSS -->
   <style>
-    /* Reset básico e fonte padrão */
+    /* Reset e configurações básicas */
     * {
       margin: 0;
       padding: 0;
@@ -30,22 +31,11 @@
       height: 100%;
       font-family: 'Poppins', sans-serif;
       overflow-x: hidden;
-      background: #0a1f33; /* Azul escuro de fundo */
-      color: #dceeff;      /* Texto azul claro */
+      background: #0a1f33; /* Fundo azul escuro */
+      color: #dceeff;      /* Cor do texto azul claro */
     }
 
-    /* Vídeo de fundo (opcional, caso adicionado futuramente) */
-    video.bg-video {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -2;
-      filter: brightness(0.5) saturate(1.1);
-    }
-
-    /* Camada de sobreposição para efeito visual escuro azulado */
+    /* Camada de sobreposição no fundo para dar efeito */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -54,10 +44,10 @@
       z-index: -1;
     }
 
-    /* Container central da página */
+    /* Container principal da página */
     .container {
       max-width: 600px;
-      background: rgba(8, 34, 58, 0.85); /* Azul translúcido */
+      background: rgba(8, 34, 58, 0.85); /* Fundo translúcido azul escuro */
       margin: 8vh auto;
       padding: 2.5rem 2rem;
       border-radius: 20px;
@@ -67,16 +57,16 @@
       z-index: 2;
     }
 
-    /* Título principal */
+    /* Título da página */
     h2 {
       font-weight: 700;
       font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: #6fc3df; /* Azul claro vibrante */
+      color: #6fc3df;
       text-shadow: 1px 1px 3px #123f5e;
     }
 
-    /* Ícones ecológicos estilizados */
+    /* Ícones ecológicos */
     .eco-icons {
       font-size: 2.8rem;
       color: #88d4f5;
@@ -84,9 +74,9 @@
       letter-spacing: 0.15rem;
     }
 
-    /* Cartões de desenvolvedor */
+    /* Estilo dos cards de desenvolvedores */
     .dev {
-      background: rgba(20, 50, 90, 0.8); /* Fundo azul escuro suave */
+      background: rgba(20, 50, 90, 0.8);
       margin: 1rem 0;
       padding: 1rem 1.4rem;
       border-radius: 14px;
@@ -98,7 +88,7 @@
     }
 
     .dev:hover {
-      background-color: #1c3d63; /* Azul mais forte no hover */
+      background-color: #1c3d63;
       box-shadow: 0 0 15px #66bde0;
     }
 
@@ -109,7 +99,7 @@
       text-shadow: 0 0 2px #1b3b5a;
     }
 
-    /* Estilo dos links do Instagram */
+    /* Link do Instagram */
     .insta-link {
       color: #96e2ff;
       text-decoration: none;
@@ -130,12 +120,12 @@
       color: #b7f3ff;
     }
 
-    /* Botão para voltar */
+    /* Botão para voltar à página principal */
     .voltar {
       display: inline-block;
       margin-top: 2rem;
       padding: 0.7rem 1.6rem;
-      background-color: #176b87; /* Azul médio */
+      background-color: #176b87;
       color: #eefaff;
       font-weight: 700;
       border-radius: 12px;
@@ -148,15 +138,7 @@
       background-color: #1d90b5;
     }
 
-    /* Rodapé */
-    footer {
-      margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #aacbe6;
-      text-shadow: 0 0 2px #123a55;
-    }
-
-    /* Responsividade para telas menores */
+    /* Responsividade para celular */
     @media (max-width: 600px) {
       .container {
         margin: 5vh 1rem;
@@ -179,86 +161,65 @@
       }
     }
   </style>
-  <!-- Fim do bloco CSS -->
+  <!-- FIM DO CSS -->
 </head>
-<body>
 
-  <!-- Início do HTML - Sobreposição escura -->
+<body>
+  <!-- Sobreposição escura no fundo -->
   <div class="overlay"></div>
 
-  <!-- Início do HTML - Conteúdo principal -->
+  <!-- INÍCIO DO CONTEÚDO PRINCIPAL -->
   <div class="container" data-aos="fade-up">
     <h2>Desenvolvedores EcoWorld</h2>
 
     <!-- Ícones decorativos -->
-    <div class="eco-icons" aria-label="Ícones ecológicos">
-      <i class="fas fa-tree" title="Árvore"></i>
-      <i class="fas fa-recycle" title="Reciclagem"></i>
-      <i class="fas fa-leaf" title="Folha"></i>
+    <div class="eco-icons">
+      <i class="fas fa-tree"></i>
+      <i class="fas fa-recycle"></i>
+      <i class="fas fa-leaf"></i>
     </div>
 
-    <!-- Lista de desenvolvedores com link -->
+    <!-- Lista de desenvolvedores -->
     <div class="dev">
       <span class="dev-name">Alex Leal</span>
-      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank" aria-label="Instagram Alex Leal">
+      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Filipe Kallebe</span>
-      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank" aria-label="Instagram Filipe Kallebe">
+      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Iranildo José</span>
-      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank" aria-label="Instagram Iranildo José">
+      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Joellyngthon Henrique</span>
-      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank" aria-label="Instagram Joellyngthon Henrique">
+      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
-    <!-- Botão voltar -->
-    <a href="pagina_protegida.html" class="voltar" aria-label="Voltar à página inicial">← Voltar para EcoWorld</a>
-
-    <!-- Rodapé -->
-    <footer>© 2025 EcoWorld. Todos os direitos reservados.</footer>
+    <!-- Botão de voltar -->
+    <a href="ecoworld.html" class="voltar">← Voltar para EcoWorld</a>
   </div>
-  <!-- Fim do HTML - Conteúdo principal -->
+  <!-- FIM DO CONTEÚDO PRINCIPAL -->
 
-  <!-- Início do bloco JS - Script da animação AOS -->
+  <!-- INÍCIO DO JS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1100, // duração da animação em ms
-      once: true,     // animação acontece apenas uma vez ao rolar
-    });
+    // Inicializa animações AOS quando a página carrega
+    AOS.init({ duration: 1100, once: true });
   </script>
-  <!-- Fim do bloco JS - Script da animação AOS -->
-
-  <!-- Início do bloco HTML - Integração do VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <!-- Fim do bloco HTML - Integração do VLibras -->
-
-  <!-- Início do bloco JS - Script VLibras -->
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <!-- Fim do bloco JS - Script VLibras -->
-
+  <!-- FIM DO JS -->
 </body>
+<!-- FIM DO HTML -->
 </html>

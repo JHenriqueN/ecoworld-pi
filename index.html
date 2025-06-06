@@ -1,4 +1,4 @@
-<!-- Início do arquivo HTML -->
+<!-- INÍCIO DO ARQUIVO index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login EcoWorld</title>
 
-  <!-- Script do Login com Conta Google -->
+  <!-- Script para login com conta Google -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-  <!-- Início do bloco CSS -->
+  <!-- INÍCIO DO BLOCO CSS -->
   <style>
-    /* Início do CSS */
-    /* Reset básico e fonte */
+    /* INÍCIO DO CSS */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,19 +19,36 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Corpo da página centralizado vertical e horizontalmente */
     body {
       background-color: #f3f3f3;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       height: 100vh;
-      position: relative;
-      flex-direction: column; /* para o botão de voz ficar em cima */
       gap: 1rem;
     }
 
-    /* Container principal do formulário */
+    nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background-color: #007bff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     .container {
       background: white;
       padding: 2rem;
@@ -43,26 +59,22 @@
       text-align: left;
     }
 
-    /* Título centralizado */
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
     }
 
-    /* Logo centralizada */
     .logo {
       display: block;
       margin: 0 auto 1.5rem auto;
     }
 
-    /* Labels com destaque */
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
     }
 
-    /* Inputs estilo padrão */
     input {
       width: 100%;
       padding: 0.75rem;
@@ -71,7 +83,6 @@
       border-radius: 8px;
     }
 
-    /* Botão de submit */
     button {
       width: 100%;
       background-color: #007bff;
@@ -83,53 +94,59 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #0056b3;
     }
 
-    /* Linha divisória */
     .divider {
       text-align: center;
       margin: 1rem 0;
       color: #666;
     }
 
-    /* Responsivo */
     @media (max-width: 480px) {
       .container {
         padding: 1.2rem;
       }
     }
-    /* Fim do CSS */
+    /* FIM DO CSS */
   </style>
-  <!-- Fim do bloco CSS -->
-
+  <!-- FIM DO BLOCO CSS -->
 </head>
-<body>
 
-  <!-- Início do container principal com formulário -->
+<body>
+  <!-- INÍCIO DA NAVEGAÇÃO -->
+  <nav>
+    
+    <a href="ecoworld.html">EcoWorld</a>
+    <a href="perguntas.html">Perguntas</a>
+    <a href="tarefas.html">Tarefas</a>
+    <a href="creditos.html">Créditos</a>
+  </nav>
+  <!-- FIM DA NAVEGAÇÃO -->
+
+  <!-- INÍCIO DO CONTAINER PRINCIPAL -->
   <div class="container" role="main" aria-label="Formulário de login EcoWorld">
     <h2>EcoWorld</h2>
 
-    <!-- Logo da EcoWorld -->
+    <!-- LOGO -->
     <img class="logo" src="assets/terra-removebg-preview 2.png" alt="Logo EcoWorld" width="100" />
 
-    <!-- Início do formulário de login -->
+    <!-- FORMULÁRIO DE LOGIN -->
     <form>
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="seu@email.com" required aria-required="true" />
+      <input type="email" id="email" placeholder="seu@email.com" required />
 
       <label for="senha">Senha</label>
-      <input type="password" id="senha" placeholder="••••••••" required aria-required="true" />
+      <input type="password" id="senha" placeholder="••••••••" required />
 
       <button type="submit">Entrar</button>
     </form>
-    <!-- Fim do formulário de login -->
 
-    <!-- Divisor visual -->
     <div class="divider" aria-hidden="true">ou</div>
 
-    <!-- Login Google - início -->
+    <!-- LOGIN GOOGLE -->
     <div id="g_id_onload"
          data-client_id="676772522218-437n6dg5veuffqe4je58n3jda0ipqep9.apps.googleusercontent.com"
          data-callback="handleCredentialResponse"
@@ -144,33 +161,26 @@
          data-shape="pill"
          data-logo_alignment="left">
     </div>
-    <!-- Login Google - fim -->
   </div>
-  <!-- Fim do container principal -->
+  <!-- FIM DO CONTAINER PRINCIPAL -->
 
-  <!-- VLibras: Acessibilidade para surdos - início -->
+  <!-- INÍCIO DO VLibras (acessibilidade) -->
   <div vw class="enabled">
     <div vw-access-button class="active" aria-label="Ativar acessibilidade em Libras"></div>
     <div vw-plugin-wrapper>
       <div class="vw-plugin-top-wrapper"></div>
     </div>
   </div>
-  <!-- VLibras - fim -->
 
-  <!-- Script VLibras - início -->
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script>
-    /* Início do JavaScript VLibras */
     new window.VLibras.Widget('https://vlibras.gov.br/app');
-    /* Fim do JavaScript VLibras */
   </script>
-  <!-- Script VLibras - fim -->
+  <!-- FIM DO VLibras -->
 
-  <!-- Script Google Auth - início -->
+  <!-- INÍCIO DO BLOCO JS -->
   <script>
-    /* Início do JavaScript Google Auth */
-
-    // Função para decodificar token JWT e extrair dados do usuário
+    // Decodifica o token JWT da conta Google
     function parseJwt(token) {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -180,20 +190,16 @@
       return JSON.parse(jsonPayload);
     }
 
-    // Função para tratar resposta do login Google
+    // Trata o login Google
     function handleCredentialResponse(response) {
       const user = parseJwt(response.credential);
-      // Armazena dados do usuário no localStorage
       localStorage.setItem('userName', user.name);
       localStorage.setItem('userEmail', user.email);
       localStorage.setItem('userPicture', user.picture);
-      // Redireciona para página protegida após login
       window.location.href = 'pagina_protegida.html';
     }
-    /* Fim do JavaScript Google Auth */
   </script>
-  <!-- Script Google Auth - fim -->
-
+  <!-- FIM DO BLOCO JS -->
 </body>
 </html>
-<!-- Fim do arquivo HTML -->
+<!-- FIM DO ARQUIVO index.html -->
