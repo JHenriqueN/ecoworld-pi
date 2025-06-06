@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="pt-BR"><!-- Início do documento HTML -->
+
+<head><!-- Início da seção head do HTML -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz EcoWorld - 10 Perguntas</title>
+
+  <!-- Link para fonte externa Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
   <style>
+    /* Início do bloco CSS */
+
     /* Estilo base do body com fundo azul escuro e texto claro */
     body {
       font-family: 'Poppins', sans-serif;
@@ -105,23 +111,29 @@
         width: 100%;
       }
     }
-  </style>
-</head>
-<body>
 
-  <div class="quiz-container">
+    /* Fim do bloco CSS */
+  </style>
+</head><!-- Fim da seção head do HTML -->
+
+<body><!-- Início da seção body do HTML -->
+
+  <div class="quiz-container"><!-- Container principal do quiz -->
     <h2 id="question">Pergunta aparecerá aqui</h2>
 
     <div id="options">
-      <!-- Opções serão criadas aqui -->
+      <!-- Opções serão criadas aqui via JavaScript -->
     </div>
 
     <button id="submitBtn" disabled>Responder</button>
 
     <div class="result" id="result"></div>
-  </div>
+  </div><!-- Fim do container principal do quiz -->
 
   <script>
+    /* Início do bloco JavaScript */
+
+    // Array contendo as perguntas, opções e resposta correta
     const quiz = [
       {
         question: "Qual é o principal objetivo do projeto EcoWorld?",
@@ -215,55 +227,60 @@
       }
     ];
 
+    // Variáveis para controle do quiz
     let currentQuestion = 0;
     let selectedOption = null;
     let score = 0;
     let quizEnded = false;
 
+    // Referências aos elementos do DOM
     const questionEl = document.getElementById('question');
     const optionsEl = document.getElementById('options');
     const submitBtn = document.getElementById('submitBtn');
     const resultEl = document.getElementById('result');
 
-    // Carrega a pergunta atual e cria as opções clicáveis
+    // Função que carrega a pergunta atual e cria opções clicáveis
     function loadQuestion() {
-      resultEl.textContent = '';
-      selectedOption = null;
-      submitBtn.disabled = true;
+      resultEl.textContent = ''; // Limpa mensagem anterior
+      selectedOption = null; // Nenhuma opção selecionada inicialmente
+      submitBtn.disabled = true; // Desabilita botão até escolher uma opção
 
       const q = quiz[currentQuestion];
       questionEl.textContent = `Questão ${currentQuestion + 1}: ${q.question}`;
-      optionsEl.innerHTML = '';
+      optionsEl.innerHTML = ''; // Limpa opções anteriores
 
-      // Cria um div para cada opção
+      // Cria um div para cada opção de resposta
       q.options.forEach((option, index) => {
         const div = document.createElement('div');
         div.classList.add('option');
         div.textContent = option;
 
-        // Evento para selecionar a opção clicada
+        // Adiciona evento de clique para seleção da opção
         div.addEventListener('click', () => selectOption(index, div));
 
         optionsEl.appendChild(div);
       });
     }
 
-    // Marca uma opção como selecionada e habilita o botão responder
+    // Marca a opção selecionada e habilita o botão responder
     function selectOption(index, element) {
+      // Remove classe 'selected' de todas as opções
       [...optionsEl.children].forEach(opt => opt.classList.remove('selected'));
+      // Adiciona a classe 'selected' na opção clicada
       element.classList.add('selected');
-      selectedOption = index;
-      submitBtn.disabled = false;
-      resultEl.textContent = '';
+      selectedOption = index; // Guarda índice da opção selecionada
+      submitBtn.disabled = false; // Habilita botão responder
+      resultEl.textContent = ''; // Limpa mensagens anteriores
     }
 
-    // Evento do botão responder
+    // Evento disparado ao clicar no botão responder
     submitBtn.addEventListener('click', () => {
       if (!quizEnded) {
-        if (selectedOption === null) return;
+        if (selectedOption === null) return; // Se nada selecionado, sai
 
         const correctIndex = quiz[currentQuestion].correct;
 
+        // Verifica se a resposta está correta
         if (selectedOption === correctIndex) {
           score++;
           resultEl.textContent = 'Resposta correta! 🎉';
@@ -273,19 +290,19 @@
           resultEl.style.color = 'salmon';
         }
 
-        submitBtn.disabled = true;
+        submitBtn.disabled = true; // Desabilita botão após responder
 
-        // Avança para a próxima pergunta ou finaliza o quiz
+        // Aguarda 1.5 segundos para avançar ou finalizar quiz
         setTimeout(() => {
           currentQuestion++;
           if (currentQuestion < quiz.length) {
-            loadQuestion();
+            loadQuestion(); // Carrega próxima pergunta
           } else {
-            showFinalScore();
+            showFinalScore(); // Mostra resultado final
           }
         }, 1500);
       } else {
-        // Reinicia as perguntas após terminar
+        // Reinicia o quiz após terminar
         currentQuestion = 0;
         score = 0;
         quizEnded = false;
@@ -309,8 +326,26 @@
       submitBtn.disabled = false;
     }
 
-    // Carrega a primeira pergunta ao iniciar a página
+    // Carrega a primeira pergunta assim que a página é carregada
     loadQuestion();
+
+    /* Fim do bloco JavaScript */
   </script>
-</body>
-</html>
+
+  <!-- Integração do VLibras Widget para acessibilidade -->
+  <!-- Início da integração do VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <!-- Fim da integração do VLibras -->
+
+</body><!-- Fim da seção body do HTML -->
+
+</html><!-- Fim do documento HTML -->

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+<!-- Início do documento HTML -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EcoWorld - Quem Somos</title>
 
+  <!-- Início do CSS -->
   <style>
     /* Reset básico e box-sizing */
     * {
@@ -92,7 +94,7 @@
     .voltar:hover {
       background-color: #005a99;
       color: #cce6ff;
-      box-shadow: 0 0 15px rgba(0, 90, 153, 0.9);
+      box-shadow: 0 0 15px rgba(0, 0, 153, 0.9);
     }
 
     /* Rodapé fixo */
@@ -121,7 +123,7 @@
       cursor: pointer;
       color: white;
       background-color: #007acc;
-      box-shadow: 0 0 10px rgba(0, 122, 204, 0.7);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
       transition: background-color 0.3s ease;
     }
     .acessibilidade button:hover {
@@ -148,17 +150,14 @@
       }
     }
   </style>
+  <!-- Fim do CSS -->
 </head>
 <body>
+  <!-- Início do conteúdo principal (HTML) -->
+
   <!-- Container principal -->
   <div class="container" role="main">
-
-    <!-- Controle de leitura em voz alta: botões com aria-labels para leitores de tela -->
-    <div class="acessibilidade" role="region" aria-label="Controle de leitura em voz alta">
-      <button id="btnLer" aria-label="Iniciar leitura do conteúdo">▶️ Ler Conteúdo</button>
-      <button id="btnParar" aria-label="Parar leitura do conteúdo">⏹️ Parar Leitura</button>
-    </div>
-
+    
     <!-- Mensagem de boas-vindas -->
     <div class="welcome" tabindex="0">
       🌿 Bem-vindo à EcoWorld!<br />
@@ -212,40 +211,22 @@
     &copy; 2025 EcoWorld. Todos os direitos reservados.
   </footer>
 
+  <!-- Integração com o widget VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <!-- Início do JavaScript -->
   <script>
-    // Seleciona os botões de ler e parar
-    const btnLer = document.getElementById('btnLer');
-    const btnParar = document.getElementById('btnParar');
-    let fala; // variável para armazenar o objeto de fala
-
-    // Evento para iniciar a leitura em voz alta
-    btnLer.addEventListener('click', () => {
-      // Se já estiver falando, cancela antes de iniciar nova fala
-      if(window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-      
-      // Pega o texto da div container, que contém o conteúdo principal da página
-      const textoParaLer = document.querySelector('.container').innerText;
-
-      // Cria um novo objeto SpeechSynthesisUtterance com o texto
-      fala = new SpeechSynthesisUtterance(textoParaLer);
-      fala.lang = 'pt-BR';   // Define idioma português brasileiro
-      fala.rate = 1;         // Velocidade normal de fala
-
-      // Inicia a fala
-      window.speechSynthesis.speak(fala);
-    });
-
-    // Evento para parar a leitura
-    btnParar.addEventListener('click', () => {
-      window.speechSynthesis.cancel(); // Para toda fala em andamento
-
-      
-    });
-    
+    // Inicializa o widget VLibras para acessibilidade
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
-  
-</body>
+  <!-- Fim do JavaScript -->
 
+  <!-- Fim do conteúdo principal (HTML) -->
+</body>
 </html>
+<!-- Fim do documento HTML -->

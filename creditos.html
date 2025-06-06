@@ -17,6 +17,7 @@
   <!-- Biblioteca AOS (Animação ao rolar) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
+  <!-- Início do bloco CSS -->
   <style>
     /* Reset básico e fonte padrão */
     * {
@@ -178,13 +179,14 @@
       }
     }
   </style>
+  <!-- Fim do bloco CSS -->
 </head>
 <body>
 
-  <!-- Sobreposição escura -->
+  <!-- Início do HTML - Sobreposição escura -->
   <div class="overlay"></div>
 
-  <!-- Conteúdo principal -->
+  <!-- Início do HTML - Conteúdo principal -->
   <div class="container" data-aos="fade-up">
     <h2>Desenvolvedores EcoWorld</h2>
 
@@ -230,15 +232,33 @@
     <!-- Rodapé -->
     <footer>© 2025 EcoWorld. Todos os direitos reservados.</footer>
   </div>
+  <!-- Fim do HTML - Conteúdo principal -->
 
-  <!-- Script da animação AOS -->
+  <!-- Início do bloco JS - Script da animação AOS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({
-      duration: 1100,
-      once: true,
+      duration: 1100, // duração da animação em ms
+      once: true,     // animação acontece apenas uma vez ao rolar
     });
   </script>
+  <!-- Fim do bloco JS - Script da animação AOS -->
+
+  <!-- Início do bloco HTML - Integração do VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <!-- Fim do bloco HTML - Integração do VLibras -->
+
+  <!-- Início do bloco JS - Script VLibras -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <!-- Fim do bloco JS - Script VLibras -->
 
 </body>
 </html>

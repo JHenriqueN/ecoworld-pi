@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Início do documento HTML -->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -6,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tarefas EcoWorld - Incentivo Animado e Certificado</title>
 
+  <!-- Início do CSS -->
   <style>
     /* Estilos gerais da página */
     body {
@@ -121,6 +123,7 @@
       background-color: #3b7ee6; /* Azul mais claro no hover */
     }
   </style>
+  <!-- Fim do CSS -->
 </head>
 <body>
 
@@ -142,6 +145,7 @@
   <!-- Biblioteca jsPDF para gerar PDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+  <!-- Início do JavaScript -->
   <script>
     // Lista com as tarefas, pontos e incentivos para cada uma
     const tasksData = [
@@ -248,8 +252,12 @@
         return;
       }
 
+      // Início da geração do PDF usando jsPDF
+
       // Cria uma nova instância do jsPDF
+      // Obtém o objeto jsPDF da biblioteca carregada no script externo
       const { jsPDF } = window.jspdf;
+       // Cria uma nova instância do documento PDF
       const doc = new jsPDF();
 
       // Define fonte, tamanho e cor do texto para o título do certificado
@@ -285,10 +293,27 @@
       doc.setTextColor('#2a66d9');
       doc.text('Assinado por: Equipe EcoWorld', 105, 140, null, null, 'center');
 
-      // Salva o arquivo PDF com o nome formatado
+      // Salva o arquivo PDF com o nome formatado (substituindo espaços por underline)
       doc.save(`Certificado_EcoWorld_${name.replaceAll(' ', '_')}.pdf`);
+
+      // Fim da geração do PDF
     });
   </script>
+  <!-- Fim do JavaScript -->
 
+  <!-- Integração do VLibras Widget -->
+  <!-- Início da integração do VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <!-- Fim da integração do VLibras -->
 </body>
 </html>
+<!-- Fim do documento HTML -->
