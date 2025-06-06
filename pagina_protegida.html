@@ -8,149 +8,168 @@
   <style>
     /* Reset básico e box-sizing */
     * {
-      box-sizing: border-box; /* Faz com que padding e border façam parte da largura total */
+      box-sizing: border-box;
     }
 
-    /* Configurações básicas do body e html para ocupar 100% da altura */
+    /* Configurações básicas do body e html */
     body, html {
-      margin: 0;               /* Remove margens padrão */
-      padding: 0;              /* Remove padding padrão */
-      height: 100%;            /* Permite usar 100vh efetivamente */
-      font-family: Arial, sans-serif; /* Fonte padrão compatível e legível */
-      
-      /* Fundo em azul ecológico suave com degradê diagonal */
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
       background: linear-gradient(135deg, #0b3d91 0%, #66a6ff 100%);
-      
-      /* Cor do texto padrão (branco suave para contraste) */
       color: #f0f8ff;
-
-      /* Flexbox para organizar container e rodapé */
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da viewport */
+      min-height: 100vh;
     }
 
-    /* Container principal com fundo branco translúcido */
+    /* Container principal */
     .container {
-      background: rgba(255, 255, 255, 0.9); /* Fundo branco quase opaco para leitura */
-      border-radius: 12px;                   /* Bordas arredondadas para suavidade */
-      max-width: 900px;                      /* Limite de largura para leitura confortável */
-      margin: 3rem auto 2rem auto;           /* Espaçamento vertical e centralização horizontal */
-      padding: 2.5rem 3rem;                  /* Espaçamento interno */
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
-      flex-grow: 1;                         /* Faz o container crescer e empurrar o footer para baixo */
-      text-align: center;                   /* Centraliza títulos e textos principais */
-      color: #003366;                      /* Azul escuro para texto no fundo branco */
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      max-width: 900px;
+      margin: 3rem auto 2rem auto;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      flex-grow: 1;
+      text-align: center;
+      color: #003366;
     }
 
-    /* Mensagem de boas-vindas com destaque */
+    /* Mensagem de boas-vindas */
     .welcome {
-      font-size: 1.8rem;       /* Texto maior para impacto */
-      color: #004080;          /* Azul forte para destaque */
-      margin-bottom: 1.5rem;   /* Espaço abaixo */
-      font-weight: 600;        /* Negrito leve */
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve para melhor leitura */
+      font-size: 1.8rem;
+      color: #004080;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     /* Título principal */
     h1 {
-      color: #004080;           /* Azul escuro forte */
-      margin-bottom: 2rem;      /* Espaço abaixo */
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      color: #004080;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     }
 
-    /* Seções de conteúdo */
+    /* Seções com texto */
     .section {
-      margin-bottom: 2.5rem;    /* Espaço entre seções */
-      text-align: left;         /* Texto alinhado à esquerda para melhor leitura */
-      color: #003366;           /* Azul escuro */
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #003366;
     }
 
     /* Subtítulos das seções */
     .section h2 {
-      color: #0059b3;           /* Azul médio, contraste com texto normal */
-      font-size: 1.6rem;        /* Tamanho destacado */
-      margin-bottom: 0.7rem;    /* Espaço após o título */
-      text-align: center;       /* Centraliza o subtítulo */
-      font-weight: 600;         /* Negrito */
+      color: #0059b3;
+      font-size: 1.6rem;
+      margin-bottom: 0.7rem;
+      text-align: center;
+      font-weight: 600;
     }
 
-    /* Texto das seções */
+    /* Parágrafos */
     .section p {
-      font-size: 1.1rem;        /* Tamanho confortável para leitura */
-      line-height: 1.6;         /* Espaçamento entre linhas para legibilidade */
+      font-size: 1.1rem;
+      line-height: 1.6;
     }
 
-    /* Botão/link para voltar/iniciar */
+    /* Botões principais de navegação */
     .voltar {
-      display: inline-block;            /* Permite usar padding */
-      margin: 1rem 0.5rem 0 0.5rem;    /* Margem ao redor */
-      padding: 0.75rem 1.5rem;          /* Espaçamento interno */
-      background-color: #007acc;        /* Azul forte para destaque */
-      color: white;                     /* Texto branco */
-      font-weight: 700;                 /* Negrito */
-      border-radius: 8px;               /* Bordas arredondadas */
-      text-decoration: none;            /* Remove sublinhado */
-      box-shadow: 0 0 10px rgba(0, 122, 204, 0.7); /* Sombra azul suave */
-      transition: background-color 0.3s ease, color 0.3s ease; /* Animação suave */
-      cursor: pointer;                 /* Muda cursor para indicar interatividade */
+      display: inline-block;
+      margin: 1rem 0.5rem 0 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #007acc;
+      color: white;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 10px rgba(0, 122, 204, 0.7);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: pointer;
     }
-
-    /* Efeito hover no botão */
     .voltar:hover {
-      background-color: #005a99;        /* Azul escuro ao passar o mouse */
-      color: #cce6ff;                   /* Azul claro para texto */
-      box-shadow: 0 0 15px rgba(0, 90, 153, 0.9); /* Sombra mais forte */
+      background-color: #005a99;
+      color: #cce6ff;
+      box-shadow: 0 0 15px rgba(0, 90, 153, 0.9);
     }
 
-    /* Rodapé fixo ao final da página */
+    /* Rodapé fixo */
     footer {
-      background-color: #003366;      /* Azul escuro */
-      text-align: center;             /* Texto centralizado */
-      padding: 1rem 0;                /* Espaçamento vertical */
-      color: #a9d6e5;                 /* Azul claro para texto */
-      font-size: 0.9rem;              /* Texto menor */
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Sombra leve no topo do rodapé */
-      flex-shrink: 0;                 /* Impede que o footer encolha */
+      background-color: #003366;
+      text-align: center;
+      padding: 1rem 0;
+      color: #a9d6e5;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
     }
 
-    /* Responsividade para dispositivos menores */
+    /* Botões para controle da leitura (acessibilidade) */
+    .acessibilidade {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .acessibilidade button {
+      margin: 0 10px;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      background-color: #007acc;
+      box-shadow: 0 0 10px rgba(0, 122, 204, 0.7);
+      transition: background-color 0.3s ease;
+    }
+    .acessibilidade button:hover {
+      background-color: #005a99;
+    }
+
+    /* Responsividade para telas pequenas */
     @media (max-width: 600px) {
       .container {
-        padding: 2rem 1.5rem;        /* Menos padding para telas pequenas */
-        margin: 2rem 1rem 1rem 1rem; /* Margem reduzida */
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem 1rem 1rem;
       }
-
       .welcome {
-        font-size: 1.4rem;           /* Texto menor */
+        font-size: 1.4rem;
       }
-
       h1 {
-        font-size: 1.6rem;           /* Título menor */
+        font-size: 1.6rem;
       }
-
       .section h2 {
-        font-size: 1.3rem;           /* Subtítulos menores */
+        font-size: 1.3rem;
       }
-
       .section p {
-        font-size: 1rem;             /* Texto menor */
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Container principal que segura o conteúdo -->
-  <div class="container">
-    <div class="welcome">
+  <!-- Container principal -->
+  <div class="container" role="main">
+
+    <!-- Controle de leitura em voz alta: botões com aria-labels para leitores de tela -->
+    <div class="acessibilidade" role="region" aria-label="Controle de leitura em voz alta">
+      <button id="btnLer" aria-label="Iniciar leitura do conteúdo">▶️ Ler Conteúdo</button>
+      <button id="btnParar" aria-label="Parar leitura do conteúdo">⏹️ Parar Leitura</button>
+    </div>
+
+    <!-- Mensagem de boas-vindas -->
+    <div class="welcome" tabindex="0">
       🌿 Bem-vindo à EcoWorld!<br />
       Você está acessando nossa plataforma de sustentabilidade.
     </div>
 
-    <h1>Quem Somos</h1>
+    <!-- Título da página -->
+    <h1 tabindex="0">Quem Somos</h1>
 
-    <!-- Seções com conteúdo -->
-    <div class="section">
+    <!-- Seções de conteúdo, cada uma com subtítulo e parágrafo -->
+    <div class="section" tabindex="0" aria-label="Nossa história">
       <h2>📖 Nossa História</h2>
       <p>
         A <strong>EcoWorld</strong> nasceu em 2025 como um projeto educacional voltado para escolas, comunidades e jovens agentes de transformação.
@@ -161,35 +180,72 @@
       </p>
     </div>
 
-    <div class="section">
+    <div class="section" tabindex="0" aria-label="Nossa missão">
       <h2>🌱 Nossa Missão</h2>
       <p>
         Promover a conscientização ambiental e o desenvolvimento sustentável por meio de soluções tecnológicas inovadoras que contribuam para a preservação do meio ambiente.
       </p>
     </div>
 
-    <div class="section">
+    <div class="section" tabindex="0" aria-label="Nossa visão">
       <h2>🌍 Nossa Visão</h2>
       <p>
         Ser referência nacional em tecnologias sustentáveis, inspirando uma nova geração de cidadãos e empresas comprometidas com o futuro do planeta.
       </p>
     </div>
 
-    <div class="section">
+    <div class="section" tabindex="0" aria-label="Nossos valores">
       <h2>💚 Nossos Valores</h2>
       <p>
         Sustentabilidade, inovação, responsabilidade social, ética, colaboração e respeito à natureza. Acreditamos que juntos podemos transformar o mundo.
       </p>
     </div>
 
-    <!-- Link para próxima página -->
-    <a href="perguntas.html" class="voltar">Iniciar Perguntas</a>
-    <a href="tarefas.html" class="voltar">Iniciar Tarefas</a>
+    <!-- Botões para navegação, com texto claro para acessibilidade auditiva -->
+    <a href="perguntas.html" class="voltar" aria-label="Iniciar Perguntas">Iniciar Perguntas</a>
+    <a href="tarefas.html" class="voltar" aria-label="Iniciar Tarefas">Iniciar Tarefas</a>
+    <a href="creditos.html" class="voltar" aria-label="Desenvolvedores EcoWorld">Desenvolvedores EcoWorld</a>
   </div>
 
-  <!-- Rodapé fixo com direitos reservados -->
-  <footer>
+  <!-- Rodapé -->
+  <footer role="contentinfo" tabindex="0">
     &copy; 2025 EcoWorld. Todos os direitos reservados.
   </footer>
+
+  <script>
+    // Seleciona os botões de ler e parar
+    const btnLer = document.getElementById('btnLer');
+    const btnParar = document.getElementById('btnParar');
+    let fala; // variável para armazenar o objeto de fala
+
+    // Evento para iniciar a leitura em voz alta
+    btnLer.addEventListener('click', () => {
+      // Se já estiver falando, cancela antes de iniciar nova fala
+      if(window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+      
+      // Pega o texto da div container, que contém o conteúdo principal da página
+      const textoParaLer = document.querySelector('.container').innerText;
+
+      // Cria um novo objeto SpeechSynthesisUtterance com o texto
+      fala = new SpeechSynthesisUtterance(textoParaLer);
+      fala.lang = 'pt-BR';   // Define idioma português brasileiro
+      fala.rate = 1;         // Velocidade normal de fala
+
+      // Inicia a fala
+      window.speechSynthesis.speak(fala);
+    });
+
+    // Evento para parar a leitura
+    btnParar.addEventListener('click', () => {
+      window.speechSynthesis.cancel(); // Para toda fala em andamento
+
+      
+    });
+    
+  </script>
+  
 </body>
+
 </html>
