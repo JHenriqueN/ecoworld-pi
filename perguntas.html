@@ -4,63 +4,106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz EcoWorld - 10 Perguntas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Estilo base do body com fundo azul escuro e texto claro */
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #a8edea, #fed6e3);
+      font-family: 'Poppins', sans-serif;
+      background-color: #0a2e50; /* fundo azul escuro */
+      margin: 0;
+      padding: 0;
+      color: #f0f8ff; /* texto off-white */
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
+
+    /* Container do quiz com fundo semitransparente */
     .quiz-container {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      background: rgba(43, 74, 122, 0.9); /* azul escuro transparente */
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(107, 207, 135, 0.7); /* sombra verde clara */
       padding: 2rem;
       width: 90%;
-      max-width: 600px;
+      max-width: 700px;
       text-align: center;
     }
+
+    /* Estilo do título */
     h2 {
       margin-bottom: 1.5rem;
+      color: #6bcf87; /* verde claro */
+      font-size: 1.5rem;
     }
+
+    /* Opções de resposta */
     .option {
-      background: #e0f7fa;
+      background: #89c2d9; /* azul claro */
+      color: #073763; /* azul escuro para texto */
       border: 2px solid transparent;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 0.75rem 1rem;
       margin: 0.5rem 0;
       cursor: pointer;
       transition: all 0.3s ease;
+      user-select: none;
     }
+
+    /* Hover nas opções */
     .option:hover {
-      background: #b2ebf2;
+      background: #6aa0c1; /* azul médio */
     }
+
+    /* Opção selecionada */
     .option.selected {
-      border-color: #007bff;
-      background: #bbdefb;
+      border-color: #2e7d32; /* verde médio */
+      background: #b2d8b2; /* verde clarinho */
     }
+
+    /* Estilo do botão */
     button {
       margin-top: 1.5rem;
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
       border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 8px;
+      background-color: #2e7d32; /* verde médio */
+      color: #f0f8ff; /* texto claro */
+      font-weight: 700;
+      border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      box-shadow: 0 0 8px #5cb85c;
+      user-select: none;
     }
+
+    /* Botão desabilitado */
     button:disabled {
-      background-color: #cccccc;
+      background-color: #7da485; /* verde acinzentado */
       cursor: not-allowed;
+      box-shadow: none;
     }
+
+    /* Resultado após resposta */
     .result {
       margin-top: 1rem;
       font-weight: bold;
       font-size: 1.1rem;
+    }
+
+    /* Responsivo para telas pequenas */
+    @media (max-width: 600px) {
+      .quiz-container {
+        padding: 1.5rem 1rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -182,6 +225,7 @@
     const submitBtn = document.getElementById('submitBtn');
     const resultEl = document.getElementById('result');
 
+    // Carrega a pergunta atual e cria as opções clicáveis
     function loadQuestion() {
       resultEl.textContent = '';
       selectedOption = null;
@@ -191,15 +235,20 @@
       questionEl.textContent = `Questão ${currentQuestion + 1}: ${q.question}`;
       optionsEl.innerHTML = '';
 
+      // Cria um div para cada opção
       q.options.forEach((option, index) => {
         const div = document.createElement('div');
         div.classList.add('option');
         div.textContent = option;
+
+        // Evento para selecionar a opção clicada
         div.addEventListener('click', () => selectOption(index, div));
+
         optionsEl.appendChild(div);
       });
     }
 
+    // Marca uma opção como selecionada e habilita o botão responder
     function selectOption(index, element) {
       [...optionsEl.children].forEach(opt => opt.classList.remove('selected'));
       element.classList.add('selected');
@@ -208,6 +257,7 @@
       resultEl.textContent = '';
     }
 
+    // Evento do botão responder
     submitBtn.addEventListener('click', () => {
       if (!quizEnded) {
         if (selectedOption === null) return;
@@ -217,14 +267,15 @@
         if (selectedOption === correctIndex) {
           score++;
           resultEl.textContent = 'Resposta correta! 🎉';
-          resultEl.style.color = 'green';
+          resultEl.style.color = 'lightgreen';
         } else {
           resultEl.textContent = `Resposta errada! A correta é: "${quiz[currentQuestion].options[correctIndex]}"`;
-          resultEl.style.color = 'red';
+          resultEl.style.color = 'salmon';
         }
 
         submitBtn.disabled = true;
 
+        // Avança para a próxima pergunta ou finaliza o quiz
         setTimeout(() => {
           currentQuestion++;
           if (currentQuestion < quiz.length) {
@@ -233,9 +284,8 @@
             showFinalScore();
           }
         }, 1500);
-
       } else {
-        // Reiniciar quiz
+        // Reinicia as perguntas após terminar
         currentQuestion = 0;
         score = 0;
         quizEnded = false;
@@ -244,22 +294,23 @@
       }
     });
 
+    // Exibe a pontuação final e mensagem motivacional
     function showFinalScore() {
       quizEnded = true;
-      questionEl.textContent = `Quiz finalizado! Você acertou ${score} de ${quiz.length} perguntas.`;
+      questionEl.textContent = `Perguntas finalizadas! Você acertou ${score} de ${quiz.length} perguntas.`;
 
       let mensagem = score >= 7
-        ? "Parabéns! Você está mandando muito bem!"
-        : "Você precisa se dedicar mais ao meio ambiente.";
+        ? "Parabéns! Você está mandando muito bem! 🌱"
+        : "Você pode melhorar! Continue aprendendo sobre sustentabilidade. 💪";
 
       optionsEl.innerHTML = `<p class="result">${mensagem}</p>`;
       resultEl.textContent = '';
-      submitBtn.textContent = 'Reiniciar Quiz';
+      submitBtn.textContent = 'Reiniciar Perguntas';
       submitBtn.disabled = false;
     }
 
+    // Carrega a primeira pergunta ao iniciar a página
     loadQuestion();
   </script>
-
 </body>
 </html>

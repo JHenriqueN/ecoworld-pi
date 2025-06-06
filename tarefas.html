@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Meta para responsividade em dispositivos móveis -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tarefas EcoWorld - Incentivo Animado e Certificado</title>
+
+  <style>
+    /* Estilos gerais da página */
+    body {
+      font-family: 'Poppins', sans-serif; /* Fonte moderna e limpa */
+      background: linear-gradient(to bottom right, #0a3e6e, #1b4f8a); /* Fundo azul degradê */
+      color: #dbefff; /* Cor do texto clara azul */
+      padding: 2rem;
+      max-width: 700px; /* Limita a largura máxima para leitura confortável */
+      margin: auto; /* Centraliza horizontalmente */
+    }
+
+    /* Título principal */
+    h1 {
+      text-align: center;
+      color: #68b0ff; /* Azul claro */
+    }
+
+    /* Estilo do campo de input para o nome */
+    input {
+      display: block;
+      margin: 1rem auto 2rem; /* Espaçamento vertical */
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      width: 100%;
+      max-width: 400px; /* Largura máxima para o input */
+    }
+
+    /* Cada tarefa */
+    .task {
+      background: rgba(10, 30, 60, 0.85); /* Fundo azul escuro semitransparente */
+      margin: 0.7rem 0;
+      padding: 1rem;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer; /* Indica que pode ser clicado */
+      transition: background-color 0.3s ease;
+      user-select: none; /* Evita seleção de texto ao clicar */
+    }
+
+    /* Estilo da tarefa quando concluída */
+    .task.completed {
+      background-color: #2a66d9; /* Azul forte */
+      box-shadow: 0 0 12px #6495ed; /* Brilho azul */
+      color: #e1eaff; /* Texto claro */
+    }
+
+    /* Cabeçalho dentro de cada tarefa (checkbox + texto + pontos) */
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Estilo do contador de pontos em cada tarefa */
+    .points {
+      background-color: #254a8a; /* Azul médio */
+      padding: 0.3rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      color: #a6c8ff; /* Azul claro */
+      min-width: 45px;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Texto do incentivo que aparece ao completar a tarefa */
+    .incentive {
+      margin-top: 0.5rem;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #c7dbff; /* Azul bem claro */
+      opacity: 0; /* Inicialmente invisível */
+      max-height: 0; /* Para esconder o conteúdo */
+      overflow: hidden;
+      transition: opacity 0.5s ease, max-height 0.5s ease; /* Animação suave */
+    }
+
+    /* Classe para mostrar o incentivo */
+    .incentive.show {
+      opacity: 1;
+      max-height: 50px;
+    }
+
+    /* Exibição da pontuação total */
+    #totalPoints {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      text-align: center;
+      color: #68b0ff; /* Azul claro */
+    }
+
+    /* Botão para gerar o certificado */
+    #generateCertBtn {
+      display: none; /* Inicialmente escondido */
+      margin: 2rem auto 0;
+      padding: 0.8rem 2rem;
+      background-color: #2a66d9; /* Azul forte */
+      border: none;
+      color: #e6f0ff; /* Azul claro */
+      font-size: 1.2rem;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #6495ed; /* Brilho azul */
+      transition: background-color 0.3s ease;
+      display: block;
+    }
+    /* Efeito hover no botão */
+    #generateCertBtn:hover {
+      background-color: #3b7ee6; /* Azul mais claro no hover */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Título da página -->
+  <h1>Tarefas Sustentáveis EcoWorld</h1>
+
+  <!-- Campo para o usuário digitar o nome que irá no certificado -->
+  <input type="text" id="userName" placeholder="Digite seu nome para o certificado" />
+
+  <!-- Container onde as tarefas serão inseridas via JavaScript -->
+  <div id="tasksContainer"></div>
+
+  <!-- Exibe a pontuação total do usuário -->
+  <div id="totalPoints">Pontuação Total: 0</div>
+
+  <!-- Botão para gerar o certificado (aparece só quando todas as tarefas são completadas) -->
+  <button id="generateCertBtn">🎓 Gerar Certificado</button>
+
+  <!-- Biblioteca jsPDF para gerar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Lista com as tarefas, pontos e incentivos para cada uma
+    const tasksData = [
+      { text: 'Separar o lixo reciclável em casa', points: 5, incentive: 'Ótimo! Cada ação conta para um planeta mais limpo.' },
+      { text: 'Economizar água ao escovar os dentes', points: 3, incentive: 'Excelente! Água é vida, parabéns por economizar.' },
+      { text: 'Plantar uma árvore ou cuidar de plantas', points: 10, incentive: 'Sensacional! Você ajuda o pulmão do mundo.' },
+      { text: 'Usar sacolas reutilizáveis ao fazer compras', points: 4, incentive: 'Muito bom! Reduzir plástico é urgente.' },
+      { text: 'Desligar luzes ao sair de um cômodo', points: 2, incentive: 'Pequenos hábitos geram grandes impactos!' },
+      { text: 'Evitar desperdício de alimentos', points: 3, incentive: 'Parabéns! Aproveitar alimentos é cuidar do planeta.' },
+      { text: 'Andar mais a pé ou de bicicleta', points: 6, incentive: 'Saudável para você e para o meio ambiente!' },
+      { text: 'Desligar aparelhos eletrônicos da tomada', points: 3, incentive: 'Economia de energia, ótimo para a conta e o planeta!' },
+      { text: 'Participar de mutirões de limpeza', points: 8, incentive: 'Você faz a diferença na sua comunidade!' },
+      { text: 'Utilizar transporte público sempre que possível', points: 7, incentive: 'Menos carros, menos poluição. Parabéns!' }
+    ];
+
+    // Referências para elementos importantes na página
+    const tasksContainer = document.getElementById('tasksContainer');
+    const totalPointsEl = document.getElementById('totalPoints');
+    const generateCertBtn = document.getElementById('generateCertBtn');
+
+    // Para cada tarefa da lista, criamos elementos HTML dinamicamente
+    tasksData.forEach((task, idx) => {
+      // Div que envolve a tarefa toda
+      const div = document.createElement('div');
+      div.classList.add('task');
+      div.dataset.points = task.points; // Armazena os pontos como atributo data
+
+      // Div para o cabeçalho com checkbox, texto e pontos
+      const headerDiv = document.createElement('div');
+      headerDiv.classList.add('task-header');
+
+      // Label para o texto e checkbox
+      const label = document.createElement('label');
+      label.style.flex = '1'; // Para ocupar o máximo possível no flex
+      label.style.cursor = 'pointer';
+
+      // Checkbox para marcar a tarefa como concluída
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.style.marginRight = '1rem';
+
+      // Coloca o checkbox e o texto dentro do label (clicar no texto também marca)
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(task.text));
+
+      // Span para mostrar os pontos da tarefa
+      const pointsSpan = document.createElement('span');
+      pointsSpan.className = 'points';
+      pointsSpan.textContent = `+${task.points}`;
+
+      // Monta o header com label e pontos
+      headerDiv.appendChild(label);
+      headerDiv.appendChild(pointsSpan);
+
+      // Adiciona o header na div da tarefa
+      div.appendChild(headerDiv);
+
+      // Div para mostrar o incentivo animado quando a tarefa é concluída
+      const incentiveDiv = document.createElement('div');
+      incentiveDiv.classList.add('incentive');
+      incentiveDiv.textContent = task.incentive;
+      div.appendChild(incentiveDiv);
+
+      // Adiciona a tarefa pronta no container principal
+      tasksContainer.appendChild(div);
+
+      // Evento ao clicar no checkbox para marcar/desmarcar tarefa
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          // Marca a tarefa visualmente como concluída
+          div.classList.add('completed');
+          // Mostra o incentivo animado
+          incentiveDiv.classList.add('show');
+        } else {
+          // Remove estilos e incentivo ao desmarcar
+          div.classList.remove('completed');
+          incentiveDiv.classList.remove('show');
+        }
+        // Atualiza a pontuação total
+        updatePoints();
+      });
+    });
+
+    // Função para atualizar o total de pontos e mostrar/esconder botão de certificado
+    function updatePoints() {
+      // Seleciona todas as tarefas marcadas como concluídas
+      const checked = document.querySelectorAll('.task.completed');
+      let total = 0;
+      // Soma os pontos de cada tarefa marcada
+      checked.forEach(t => total += Number(t.dataset.points));
+      // Atualiza o texto da pontuação total
+      totalPointsEl.textContent = `Pontuação Total: ${total}`;
+
+      // Se todas as tarefas estiverem concluídas, mostra o botão de gerar certificado
+      generateCertBtn.style.display = checked.length === tasksData.length ? 'block' : 'none';
+    }
+
+    // Evento para gerar o certificado ao clicar no botão
+    generateCertBtn.addEventListener('click', () => {
+      // Pega o nome digitado pelo usuário
+      const name = document.getElementById('userName').value.trim();
+      if (!name) {
+        alert("Digite seu nome para gerar o certificado."); // Validação simples
+        return;
+      }
+
+      // Cria uma nova instância do jsPDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Define fonte, tamanho e cor do texto para o título do certificado
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(24);
+      doc.setTextColor('#1b4f8a'); // Azul escuro para o título
+      doc.text('Certificado de Conclusão', 105, 40, null, null, 'center');
+
+      // Texto fixo do certificado
+      doc.setFontSize(16);
+      doc.setTextColor('#254a8a');
+      doc.text('Certificamos que', 105, 60, null, null, 'center');
+
+      // Nome do usuário destacado
+      doc.setFontSize(20);
+      doc.setTextColor('#2a66d9');
+      doc.text(name, 105, 75, null, null, 'center');
+
+      // Texto adicional do certificado
+      doc.setFontSize(14);
+      doc.setTextColor('#0a3e6e');
+      doc.text('concluiu todas as tarefas sustentáveis da EcoWorld', 105, 90, null, null, 'center');
+      doc.text('demonstrando compromisso com o meio ambiente.', 105, 100, null, null, 'center');
+
+      // Data atual formatada para pt-BR
+      doc.setFontSize(12);
+      const date = new Date().toLocaleDateString('pt-BR');
+      doc.text(`Data: ${date}`, 105, 120, null, null, 'center');
+
+      // Assinatura fictícia da equipe EcoWorld no rodapé
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(14);
+      doc.setTextColor('#2a66d9');
+      doc.text('Assinado por: Equipe EcoWorld', 105, 140, null, null, 'center');
+
+      // Salva o arquivo PDF com o nome formatado
+      doc.save(`Certificado_EcoWorld_${name.replaceAll(' ', '_')}.pdf`);
+    });
+  </script>
+
+</body>
+</html>

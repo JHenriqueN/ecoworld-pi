@@ -2,172 +2,194 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Área Protegida - EcoWorld</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EcoWorld - Quem Somos</title>
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e0f7fa, #ffffff);
+    /* Reset básico e box-sizing */
+    * {
+      box-sizing: border-box; /* Faz com que padding e border façam parte da largura total */
     }
 
-    header {
-      background-color: #007bff;
-      color: white;
-      padding: 1rem 2rem;
+    /* Configurações básicas do body e html para ocupar 100% da altura */
+    body, html {
+      margin: 0;               /* Remove margens padrão */
+      padding: 0;              /* Remove padding padrão */
+      height: 100%;            /* Permite usar 100vh efetivamente */
+      font-family: Arial, sans-serif; /* Fonte padrão compatível e legível */
+      
+      /* Fundo em azul ecológico suave com degradê diagonal */
+      background: linear-gradient(135deg, #0b3d91 0%, #66a6ff 100%);
+      
+      /* Cor do texto padrão (branco suave para contraste) */
+      color: #f0f8ff;
+
+      /* Flexbox para organizar container e rodapé */
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      flex-direction: column;
+      min-height: 100vh; /* Garante que o conteúdo ocupe toda a altura da viewport */
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
+    /* Container principal com fundo branco translúcido */
+    .container {
+      background: rgba(255, 255, 255, 0.9); /* Fundo branco quase opaco para leitura */
+      border-radius: 12px;                   /* Bordas arredondadas para suavidade */
+      max-width: 900px;                      /* Limite de largura para leitura confortável */
+      margin: 3rem auto 2rem auto;           /* Espaçamento vertical e centralização horizontal */
+      padding: 2.5rem 3rem;                  /* Espaçamento interno */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+      flex-grow: 1;                         /* Faz o container crescer e empurrar o footer para baixo */
+      text-align: center;                   /* Centraliza títulos e textos principais */
+      color: #003366;                      /* Azul escuro para texto no fundo branco */
     }
 
-    header a {
-      color: white;
-      text-decoration: none;
-      background-color: #0056b3;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
+    /* Mensagem de boas-vindas com destaque */
+    .welcome {
+      font-size: 1.8rem;       /* Texto maior para impacto */
+      color: #004080;          /* Azul forte para destaque */
+      margin-bottom: 1.5rem;   /* Espaço abaixo */
+      font-weight: 600;        /* Negrito leve */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve para melhor leitura */
     }
 
-    header a:hover {
-      background-color: #004494;
+    /* Título principal */
+    h1 {
+      color: #004080;           /* Azul escuro forte */
+      margin-bottom: 2rem;      /* Espaço abaixo */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Sombra suave */
     }
 
-    .main {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
+    /* Seções de conteúdo */
+    .section {
+      margin-bottom: 2.5rem;    /* Espaço entre seções */
+      text-align: left;         /* Texto alinhado à esquerda para melhor leitura */
+      color: #003366;           /* Azul escuro */
     }
 
-    .card {
-      background-color: white;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    /* Subtítulos das seções */
+    .section h2 {
+      color: #0059b3;           /* Azul médio, contraste com texto normal */
+      font-size: 1.6rem;        /* Tamanho destacado */
+      margin-bottom: 0.7rem;    /* Espaço após o título */
+      text-align: center;       /* Centraliza o subtítulo */
+      font-weight: 600;         /* Negrito */
     }
 
-    .card h2 {
-      margin-bottom: 0.75rem;
-      text-align: center;
+    /* Texto das seções */
+    .section p {
+      font-size: 1.1rem;        /* Tamanho confortável para leitura */
+      line-height: 1.6;         /* Espaçamento entre linhas para legibilidade */
     }
 
-    .card p {
-      color: #555;
-      line-height: 1.6;
+    /* Botão/link para voltar/iniciar */
+    .voltar {
+      display: inline-block;            /* Permite usar padding */
+      margin: 1rem 0.5rem 0 0.5rem;    /* Margem ao redor */
+      padding: 0.75rem 1.5rem;          /* Espaçamento interno */
+      background-color: #007acc;        /* Azul forte para destaque */
+      color: white;                     /* Texto branco */
+      font-weight: 700;                 /* Negrito */
+      border-radius: 8px;               /* Bordas arredondadas */
+      text-decoration: none;            /* Remove sublinhado */
+      box-shadow: 0 0 10px rgba(0, 122, 204, 0.7); /* Sombra azul suave */
+      transition: background-color 0.3s ease, color 0.3s ease; /* Animação suave */
+      cursor: pointer;                 /* Muda cursor para indicar interatividade */
     }
 
-    /* Estilo do botão adicionado */
-    #meuBotao {
-      display: block;
-      margin: 2rem auto;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+    /* Efeito hover no botão */
+    .voltar:hover {
+      background-color: #005a99;        /* Azul escuro ao passar o mouse */
+      color: #cce6ff;                   /* Azul claro para texto */
+      box-shadow: 0 0 15px rgba(0, 90, 153, 0.9); /* Sombra mais forte */
     }
 
-    #meuBotao:hover {
-      background-color: #0056b3;
-    }
-
+    /* Rodapé fixo ao final da página */
     footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #f1f1f1;
-      color: #666;
-      margin-top: 3rem;
+      background-color: #003366;      /* Azul escuro */
+      text-align: center;             /* Texto centralizado */
+      padding: 1rem 0;                /* Espaçamento vertical */
+      color: #a9d6e5;                 /* Azul claro para texto */
+      font-size: 0.9rem;              /* Texto menor */
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Sombra leve no topo do rodapé */
+      flex-shrink: 0;                 /* Impede que o footer encolha */
+    }
+
+    /* Responsividade para dispositivos menores */
+    @media (max-width: 600px) {
+      .container {
+        padding: 2rem 1.5rem;        /* Menos padding para telas pequenas */
+        margin: 2rem 1rem 1rem 1rem; /* Margem reduzida */
+      }
+
+      .welcome {
+        font-size: 1.4rem;           /* Texto menor */
+      }
+
+      h1 {
+        font-size: 1.6rem;           /* Título menor */
+      }
+
+      .section h2 {
+        font-size: 1.3rem;           /* Subtítulos menores */
+      }
+
+      .section p {
+        font-size: 1rem;             /* Texto menor */
+      }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>EcoWorld</h1>
-    <a href="eco-world.html">Sair</a>
-  </header>
-
-  <script>
-    // Pega os dados armazenados
-    const nome = localStorage.getItem('userName');
-    const email = localStorage.getItem('userEmail');
-    const foto = localStorage.getItem('userPicture');
-
-    // Mostra os dados na página
-    document.getElementById('nome')?.textContent = nome;
-    document.getElementById('email')?.textContent = email;
-    document.getElementById('foto')?.src = foto;
-
-    // Botão de sair
-    function sair() {
-      localStorage.clear(); // Remove dados salvos
-      window.location.href = 'index.html'; // Volta à página inicial
-    }
-  </script>
-
-  <div class="main">
-    <div class="card">
-      <h2>Bem-vindo!</h2>
-      <p>Parabéns! Você está acessando uma área exclusiva da EcoWorld. Aqui você poderá acompanhar suas atividades, dados ambientais e muito mais.</p>
+  <!-- Container principal que segura o conteúdo -->
+  <div class="container">
+    <div class="welcome">
+      🌿 Bem-vindo à EcoWorld!<br />
+      Você está acessando nossa plataforma de sustentabilidade.
     </div>
 
-    <div class="card">
-      <h2>Seu Impacto Positivo</h2>
-      <p>Você já economizou 235 litros de água e reduziu 18kg de CO₂ com suas ações sustentáveis. Continue assim!</p>
-    </div>
+    <h1>Quem Somos</h1>
 
-    <div class="card">
-      <h2>Últimas Notícias</h2>
-      <p>🌱 Projeto de reflorestamento começa na região sudeste. <br/>
-         🔋 Nova tecnologia promete baterias ecológicas. <br/>
-         ♻️ Dicas práticas para reduzir o consumo de plástico em casa.
+    <!-- Seções com conteúdo -->
+    <div class="section">
+      <h2>📖 Nossa História</h2>
+      <p>
+        A <strong>EcoWorld</strong> nasceu em 2025 como um projeto educacional voltado para escolas, comunidades e jovens agentes de transformação.
+        Iniciamos com a ideia de que a tecnologia pode ser uma aliada poderosa na luta por um planeta mais sustentável.
+        Desde então, desenvolvemos ferramentas como perguntas, calculadoras de impacto ambiental, e conteúdos educativos interativos.
+        Com o apoio de educadores, ativistas e entusiastas da causa verde, nos tornamos uma plataforma de referência em educação ecológica.
+        Nosso propósito é simples: <em>inspirar e capacitar pessoas para cuidar do mundo onde vivem</em>.
       </p>
     </div>
 
-    <!-- Botão adicionado aqui -->
-    <button id="meuBotao">Iniciar</button>
-    <script>
-  document.getElementById('meuBotao').addEventListener('click', function() {
-    window.location.href = 'quiz.html'; // aqui o nome do arquivo do quiz
-  });
-</script>
+    <div class="section">
+      <h2>🌱 Nossa Missão</h2>
+      <p>
+        Promover a conscientização ambiental e o desenvolvimento sustentável por meio de soluções tecnológicas inovadoras que contribuam para a preservação do meio ambiente.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🌍 Nossa Visão</h2>
+      <p>
+        Ser referência nacional em tecnologias sustentáveis, inspirando uma nova geração de cidadãos e empresas comprometidas com o futuro do planeta.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>💚 Nossos Valores</h2>
+      <p>
+        Sustentabilidade, inovação, responsabilidade social, ética, colaboração e respeito à natureza. Acreditamos que juntos podemos transformar o mundo.
+      </p>
+    </div>
+
+    <!-- Link para próxima página -->
+    <a href="perguntas.html" class="voltar">Iniciar Perguntas</a>
+    <a href="tarefas.html" class="voltar">Iniciar Tarefas</a>
   </div>
 
+  <!-- Rodapé fixo com direitos reservados -->
   <footer>
     &copy; 2025 EcoWorld. Todos os direitos reservados.
   </footer>
-
-  <script>
-    document.getElementById('meuBotao').addEventListener('click', function() {
-      alert('Iniciando o ECOWORLD!');
-    });
-
-    document.getElementById('loginForm')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
-
-      // Simulação de login válido
-      if (email === 'teste@email.com' && senha === '123456') {
-        window.location.href = 'pagina_protegida.html'; // Vai para a segunda página
-      } else {
-        alert('Credenciais inválidas');
-      }
-    });
-  </script>
-
 </body>
 </html>

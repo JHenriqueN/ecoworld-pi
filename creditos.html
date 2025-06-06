@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desenvolvedores EcoWorld</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome para ícones -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+
+  <!-- Biblioteca AOS (Animação ao rolar) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    /* Reset básico e fonte padrão */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: #0a1f33; /* Azul escuro de fundo */
+      color: #dceeff;      /* Texto azul claro */
+    }
+
+    /* Vídeo de fundo (opcional, caso adicionado futuramente) */
+    video.bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      filter: brightness(0.5) saturate(1.1);
+    }
+
+    /* Camada de sobreposição para efeito visual escuro azulado */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(135deg, rgba(5,23,40,0.75), rgba(8,41,71,0.6));
+      z-index: -1;
+    }
+
+    /* Container central da página */
+    .container {
+      max-width: 600px;
+      background: rgba(8, 34, 58, 0.85); /* Azul translúcido */
+      margin: 8vh auto;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(26, 84, 140, 0.6);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Título principal */
+    h2 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #6fc3df; /* Azul claro vibrante */
+      text-shadow: 1px 1px 3px #123f5e;
+    }
+
+    /* Ícones ecológicos estilizados */
+    .eco-icons {
+      font-size: 2.8rem;
+      color: #88d4f5;
+      margin-bottom: 2rem;
+      letter-spacing: 0.15rem;
+    }
+
+    /* Cartões de desenvolvedor */
+    .dev {
+      background: rgba(20, 50, 90, 0.8); /* Fundo azul escuro suave */
+      margin: 1rem 0;
+      padding: 1rem 1.4rem;
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 7px rgba(12, 45, 80, 0.9);
+      transition: background-color 0.3s ease;
+    }
+
+    .dev:hover {
+      background-color: #1c3d63; /* Azul mais forte no hover */
+      box-shadow: 0 0 15px #66bde0;
+    }
+
+    .dev-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #daf0ff;
+      text-shadow: 0 0 2px #1b3b5a;
+    }
+
+    /* Estilo dos links do Instagram */
+    .insta-link {
+      color: #96e2ff;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .insta-link i {
+      font-size: 1.3rem;
+      filter: drop-shadow(1px 1px 1px #133b4f);
+    }
+
+    .insta-link:hover {
+      color: #b7f3ff;
+    }
+
+    /* Botão para voltar */
+    .voltar {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.7rem 1.6rem;
+      background-color: #176b87; /* Azul médio */
+      color: #eefaff;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 8px #58b9da;
+      transition: background-color 0.3s ease;
+    }
+
+    .voltar:hover {
+      background-color: #1d90b5;
+    }
+
+    /* Rodapé */
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #aacbe6;
+      text-shadow: 0 0 2px #123a55;
+    }
+
+    /* Responsividade para telas menores */
+    @media (max-width: 600px) {
+      .container {
+        margin: 5vh 1rem;
+        padding: 1.8rem 1.4rem;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      .eco-icons {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .dev {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+      .insta-link {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sobreposição escura -->
+  <div class="overlay"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="container" data-aos="fade-up">
+    <h2>Desenvolvedores EcoWorld</h2>
+
+    <!-- Ícones decorativos -->
+    <div class="eco-icons" aria-label="Ícones ecológicos">
+      <i class="fas fa-tree" title="Árvore"></i>
+      <i class="fas fa-recycle" title="Reciclagem"></i>
+      <i class="fas fa-leaf" title="Folha"></i>
+    </div>
+
+    <!-- Lista de desenvolvedores com link -->
+    <div class="dev">
+      <span class="dev-name">Alex Leal</span>
+      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank" aria-label="Instagram Alex Leal">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <div class="dev">
+      <span class="dev-name">Filipe Kallebe</span>
+      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank" aria-label="Instagram Filipe Kallebe">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <div class="dev">
+      <span class="dev-name">Iranildo José</span>
+      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank" aria-label="Instagram Iranildo José">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <div class="dev">
+      <span class="dev-name">Joellyngthon Henrique</span>
+      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank" aria-label="Instagram Joellyngthon Henrique">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+
+    <!-- Botão voltar -->
+    <a href="index.html" class="voltar" aria-label="Voltar à página inicial">← Voltar para Login</a>
+
+    <!-- Rodapé -->
+    <footer>© 2025 EcoWorld. Todos os direitos reservados.</footer>
+  </div>
+
+  <!-- Script da animação AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1100,
+      once: true,
+    });
+  </script>
+
+</body>
+</html>
