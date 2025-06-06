@@ -68,3 +68,4 @@ const email = document.getElementById('email').value;
 
 // Chama para enviar o e-mail
 enviarEmail(nome, email);
+
