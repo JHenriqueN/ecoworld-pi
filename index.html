@@ -1,24 +1,21 @@
-<!-- INÍCIO DO ARQUIVO index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login EcoWorld</title>
 
-  <!-- Script para login com conta Google -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
-  <!-- INÍCIO DO BLOCO CSS -->
   <style>
-    /* INÍCIO DO CSS */
+    /* Seu CSS original pode continuar aqui */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
     }
-
     body {
       background-color: #f3f3f3;
       display: flex;
@@ -28,7 +25,6 @@
       height: 100vh;
       gap: 1rem;
     }
-
     nav {
       position: absolute;
       top: 0;
@@ -37,18 +33,15 @@
       padding: 1rem;
       text-align: center;
     }
-
     nav a {
       color: white;
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
-
     nav a:hover {
       text-decoration: underline;
     }
-
     .container {
       background: white;
       padding: 2rem;
@@ -58,23 +51,19 @@
       max-width: 400px;
       text-align: left;
     }
-
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
     }
-
     .logo {
       display: block;
       margin: 0 auto 1.5rem auto;
     }
-
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
     }
-
     input {
       width: 100%;
       padding: 0.75rem;
@@ -82,7 +71,6 @@
       border: 1px solid #ccc;
       border-radius: 8px;
     }
-
     button {
       width: 100%;
       background-color: #007bff;
@@ -94,47 +82,34 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
-
     button:hover {
       background-color: #0056b3;
     }
-
     .divider {
       text-align: center;
       margin: 1rem 0;
       color: #666;
     }
-
     @media (max-width: 480px) {
       .container {
         padding: 1.2rem;
       }
     }
-    /* FIM DO CSS */
   </style>
-  <!-- FIM DO BLOCO CSS -->
 </head>
-
 <body>
-  <!-- INÍCIO DA NAVEGAÇÃO -->
   <nav>
-    
     <a href="ecoworld.html">EcoWorld</a>
     <a href="perguntas.html">Perguntas</a>
     <a href="tarefas.html">Tarefas</a>
     <a href="creditos.html">Créditos</a>
   </nav>
-  <!-- FIM DA NAVEGAÇÃO -->
 
-  <!-- INÍCIO DO CONTAINER PRINCIPAL -->
   <div class="container" role="main" aria-label="Formulário de login EcoWorld">
     <h2>EcoWorld</h2>
-
-    <!-- LOGO -->
     <img class="logo" src="assets/terra-removebg-preview 2.png" alt="Logo EcoWorld" width="100" />
 
-    <!-- FORMULÁRIO DE LOGIN -->
-    <form>
+    <form id="login-form">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="seu@email.com" required />
 
@@ -146,60 +121,68 @@
 
     <div class="divider" aria-hidden="true">ou</div>
 
-    <!-- LOGIN GOOGLE -->
-    <div id="g_id_onload"
-         data-client_id="676772522218-437n6dg5veuffqe4je58n3jda0ipqep9.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
-    </div>
+    <button id="google-login" style="margin-bottom: 1rem;">Entrar com Google</button>
 
-    <div class="g_id_signin"
-         data-type="standard"
-         data-size="large"
-         data-theme="outline"
-         data-text="sign_in_with"
-         data-shape="pill"
-         data-logo_alignment="left">
-    </div>
-  </div>
-  <!-- FIM DO CONTAINER PRINCIPAL -->
-
-  <!-- INÍCIO DO VLibras (acessibilidade) -->
-  <div vw class="enabled">
-    <div vw-access-button class="active" aria-label="Ativar acessibilidade em Libras"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
+    <p>Não tem conta? <a href="#" id="criar-conta">Criar conta</a></p>
   </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <!-- FIM DO VLibras -->
+    <script>
+    // Inicializar Firebase com suas credenciais (substitua pelos seus dados)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
+      authDomain: "ecoworld-39860.firebaseapp.com",
+      projectId: "ecoworld-39860",
+      storageBucket: "ecoworld-39860.firebasestorage.app",
+      messagingSenderId: "237711066089",
+      appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178",
+      measurementId: "G-0FS1ZTKYMR"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-  <!-- INÍCIO DO BLOCO JS -->
-  <script>
-    // Decodifica o token JWT da conta Google
-    function parseJwt(token) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      return JSON.parse(jsonPayload);
-    }
+    // Login com email e senha
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
 
-    // Trata o login Google
-    function handleCredentialResponse(response) {
-      const user = parseJwt(response.credential);
-      localStorage.setItem('userName', user.name);
-      localStorage.setItem('userEmail', user.email);
-      localStorage.setItem('userPicture', user.picture);
-      window.location.href = 'ecoworld.html';
-    }
+      auth.signInWithEmailAndPassword(email, senha)
+        .then(() => {
+          window.location.href = 'ecoworld.html'; // Redireciona após login
+        })
+        .catch(error => {
+          alert('Erro no login: ' + error.message);
+        });
+    });
+
+    // Login com Google
+    document.getElementById('google-login').addEventListener('click', function() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => {
+          window.location.href = 'ecoworld.html'; // Redireciona após login
+        })
+        .catch(error => {
+          alert('Erro no login com Google: ' + error.message);
+        });
+    });
+
+    // Criar conta nova com email e senha
+    document.getElementById('criar-conta').addEventListener('click', function(e) {
+      e.preventDefault();
+      const email = prompt('Digite seu email:');
+      const senha = prompt('Digite uma senha (mínimo 6 caracteres):');
+      if (email && senha) {
+        auth.createUserWithEmailAndPassword(email, senha)
+          .then(() => {
+            alert('Conta criada com sucesso!');
+            window.location.href = 'ecoworld.html';
+          })
+          .catch(error => {
+            alert('Erro ao criar conta: ' + error.message);
+          });
+      }
+    });
   </script>
-  <!-- FIM DO BLOCO JS -->
 </body>
 </html>
-<!-- FIM DO ARQUIVO index.html -->
