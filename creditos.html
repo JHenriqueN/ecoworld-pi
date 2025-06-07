@@ -33,6 +33,7 @@
       overflow-x: hidden;
       background: #0a1f33; /* Fundo azul escuro */
       color: #dceeff;      /* Cor do texto azul claro */
+      position: relative;
     }
 
     /* Camada de sobreposição no fundo para dar efeito */
@@ -138,6 +139,29 @@
       background-color: #1d90b5;
     }
 
+    /* Botão Sair fixo no topo direito */
+    #btn-sair {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background-color: #176b87;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #58b9da(231, 76, 60, 0.7);
+      transition: background-color 0.3s ease;
+      z-index: 10;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+
+    #btn-sair:hover {
+      background-color: #1d90b5;
+    }
+
     /* Responsividade para celular */
     @media (max-width: 600px) {
       .container {
@@ -168,6 +192,9 @@
   <!-- Sobreposição escura no fundo -->
   <div class="overlay"></div>
 
+  <!-- Botão sair -->
+  <button id="btn-sair" aria-label="Sair do aplicativo">Sair</button>
+
   <!-- INÍCIO DO CONTEÚDO PRINCIPAL -->
   <div class="container" data-aos="fade-up">
     <h2>Desenvolvedores EcoWorld</h2>
@@ -182,28 +209,28 @@
     <!-- Lista de desenvolvedores -->
     <div class="dev">
       <span class="dev-name">Alex Leal</span>
-      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank">
+      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Filipe Kallebe</span>
-      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank">
+      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Iranildo José</span>
-      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank">
+      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Joellyngthon Henrique</span>
-      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank">
+      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
@@ -215,11 +242,50 @@
 
   <!-- INÍCIO DO JS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script>
     // Inicializa animações AOS quando a página carrega
     AOS.init({ duration: 1100, once: true });
+
+    // Configuração Firebase nas credenciais encontradas na configuração do  projeto
+    const firebaseConfig = {
+      apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
+      authDomain: "ecoworld-39860.firebaseapp.com",
+      projectId: "ecoworld-39860",
+      storageBucket: "ecoworld-39860.firebasestorage.app",
+      messagingSenderId: "237711066089",
+      appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Botão sair - desloga usuário e redireciona para index.html
+    document.getElementById('btn-sair').addEventListener('click', () => {
+      auth.signOut()
+        .then(() => {
+          alert('Você saiu do app.');
+          window.location.href = 'index.html'; // redireciona para index.html após logout
+        })
+        .catch(error => {
+          alert('Erro ao sair: ' + error.message);
+        });
+    });
   </script>
   <!-- FIM DO JS -->
+   <!-- Integração do VLibras Widget -->
+  <!-- Início da integração do VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+  <!-- Fim da integração do VLibras -->
 </body>
 <!-- FIM DO HTML -->
 </html>
