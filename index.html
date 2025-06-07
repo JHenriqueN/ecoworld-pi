@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login EcoWorld</title>
 
-  <!-- Firebase SDKs compatíveis para app e autenticação -->
+  <!-- Firebase SDKs compatíveis -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
   <!-- Início do CSS -->
   <style>
-    /* CSS global e reset básico */
+    /* Reset e estilo global */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,7 +20,7 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Corpo da página com centralização vertical e horizontal */
+    /* Corpo da página centralizado */
     body {
       background-color: #f3f3f3;
       display: flex;
@@ -31,26 +31,25 @@
       gap: 1rem;
     }
 
-    /* Barra de navegação fixa no topo */
+    /* Barra de navegação no topo */
     nav {
       position: absolute;
       top: 0;
       width: 100%;
-      background-color: #007bff; /* azul */
+      background-color: #007bff;
       padding: 1rem;
       text-align: center;
     }
 
-    /* Links da barra de navegação com nomes ocultos */
+    /* Links da barra (texto oculto) */
     nav a {
-      visibility: hidden; /* oculta o texto, só aparece a barra azul */
+      visibility: hidden;
       color: white;
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
 
-    /* Efeito hover para os links (mesmo que estejam invisíveis) */
     nav a:hover {
       text-decoration: underline;
     }
@@ -78,20 +77,59 @@
       margin: 0 auto 1.5rem auto;
     }
 
-    /* Estilo para os labels */
+    /* Labels */
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
     }
 
-    /* Inputs do formulário */
-    input {
+    /* Inputs email e senha */
+    input[type="email"], input[type="password"], input[type="text"] {
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1.2rem;
       border: 1px solid #ccc;
       border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      height: 2.7rem;
+    }
+
+    /* Container para input de senha e checkbox */
+    .senha-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Ajusta o padding direito para espaço do checkbox */
+    .senha-container input[type="password"],
+    .senha-container input[type="text"] {
+      padding-right: 6.5rem; /* espaço maior para texto "Mostrar senha" */
+    }
+
+    /* Label do checkbox dentro do campo senha, alinhado à direita */
+    .senha-container label.checkbox-label {
+      position: absolute;
+      top: 50%;
+      right: 0.75rem;
+      transform: translateY(-50%);
+      font-weight: normal;
+      font-size: 0.9rem;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    /* Checkbox estilizado */
+    .senha-container label.checkbox-label input[type="checkbox"] {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
     }
 
     /* Botão principal */
@@ -107,19 +145,18 @@
       transition: background-color 0.3s ease;
     }
 
-    /* Botão no estado hover */
     button:hover {
       background-color: #0056b3;
     }
 
-    /* Texto divisor "ou" */
+    /* Texto divisor */
     .divider {
       text-align: center;
       margin: 1rem 0;
       color: #666;
     }
 
-    /* Responsividade para telas pequenas */
+    /* Responsividade */
     @media (max-width: 480px) {
       .container {
         padding: 1.2rem;
@@ -150,7 +187,13 @@
       <input type="email" id="email" placeholder="seu@email.com" required />
 
       <label for="senha">Senha</label>
-      <input type="password" id="senha" placeholder="••••••••" required />
+      <div class="senha-container">
+        <input type="password" id="senha" placeholder="••••••••" required />
+        <!-- Checkbox dentro do campo senha para mostrar/ocultar senha -->
+        <label for="mostrarSenha" class="checkbox-label">
+          <input type="checkbox" id="mostrarSenha" /> Mostrar senha
+        </label>
+      </div>
 
       <button type="submit">Entrar</button>
     </form>
@@ -166,7 +209,7 @@
 
   <!-- Início do JavaScript -->
   <script>
-    // Configuração do Firebase como as credenciais que estao em configuração de projeto
+    // Configuração Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
       authDomain: "ecoworld-39860.firebaseapp.com",
@@ -178,31 +221,28 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Função para validar o formato do email usando regex
+    // Validação básica do email via regex
     function validarEmail(email) {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
     }
 
-    // Evento para tratar o envio do formulário de login
+    // Envio do formulário
     document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault(); // evita o recarregamento da página
+      e.preventDefault();
       const email = document.getElementById('email').value.trim();
       const senha = document.getElementById('senha').value;
 
-      // Validação do email
       if (!validarEmail(email)) {
         alert('Por favor, insira um email válido.');
         return;
       }
 
-      // Tentativa de login com Firebase
       auth.signInWithEmailAndPassword(email, senha)
         .then(() => {
-          window.location.href = 'ecoworld.html'; // Redireciona após login bem sucedido
+          window.location.href = 'ecoworld.html';
         })
         .catch(error => {
-          // Tratamento dos erros mais comuns
           if (error.code === 'auth/wrong-password') {
             alert('Senha incorreta. Tente novamente.');
           } else if (error.code === 'auth/user-not-found') {
@@ -213,39 +253,34 @@
         });
     });
 
-    // Evento para login com Google usando popup
+    // Login com Google
     document.getElementById('google-login').addEventListener('click', function() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
         .then(() => {
-          window.location.href = 'ecoworld.html'; // Redireciona após login
+          window.location.href = 'ecoworld.html';
         })
         .catch(error => {
           alert('Erro no login com Google: ' + error.message);
         });
     });
 
-    // Evento para criar conta nova
+    // Criar conta
     document.getElementById('criar-conta').addEventListener('click', function(e) {
       e.preventDefault();
-
-      // Solicita email e senha via prompt
       const email = prompt('Digite seu email:');
       const senha = prompt('Digite uma senha (mínimo 6 caracteres):');
 
-      // Valida campos obrigatórios
       if (!email || !senha) {
         alert('Email e senha são obrigatórios.');
         return;
       }
 
-      // Valida email
       if (!validarEmail(email)) {
         alert('Por favor, insira um email válido.');
         return;
       }
 
-      // Cria usuário com email e senha no Firebase
       auth.createUserWithEmailAndPassword(email, senha)
         .then(() => {
           alert('Conta criada com sucesso!');
@@ -259,10 +294,16 @@
           }
         });
     });
+
+    // Mostrar/ocultar senha ao marcar/desmarcar checkbox
+    document.getElementById('mostrarSenha').addEventListener('change', function() {
+      const senhaInput = document.getElementById('senha');
+      senhaInput.type = this.checked ? 'text' : 'password';
+    });
   </script>
   <!-- Fim do JavaScript -->
 
-  <!-- Integração do VLibras Widget para acessibilidade -->
+  <!-- VLibras para acessibilidade -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
