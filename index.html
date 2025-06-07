@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<!-- Início da estrutura HTML -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Login EcoWorld</title>
 
+  <!-- Firebase SDKs compatíveis para app e autenticação -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
+  <!-- Início do CSS -->
   <style>
-    /* Seu CSS original pode continuar aqui */
+    /* CSS global e reset básico */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
     }
+
+    /* Corpo da página com centralização vertical e horizontal */
     body {
       background-color: #f3f3f3;
       display: flex;
@@ -25,23 +30,32 @@
       height: 100vh;
       gap: 1rem;
     }
+
+    /* Barra de navegação fixa no topo */
     nav {
       position: absolute;
       top: 0;
       width: 100%;
-      background-color: #007bff;
+      background-color: #007bff; /* azul */
       padding: 1rem;
       text-align: center;
     }
+
+    /* Links da barra de navegação com nomes ocultos */
     nav a {
+      visibility: hidden; /* oculta o texto, só aparece a barra azul */
       color: white;
       margin: 0 1rem;
       text-decoration: none;
       font-weight: bold;
     }
+
+    /* Efeito hover para os links (mesmo que estejam invisíveis) */
     nav a:hover {
       text-decoration: underline;
     }
+
+    /* Container do formulário */
     .container {
       background: white;
       padding: 2rem;
@@ -51,19 +65,27 @@
       max-width: 400px;
       text-align: left;
     }
+
+    /* Título centralizado */
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
     }
+
+    /* Logo centralizada */
     .logo {
       display: block;
       margin: 0 auto 1.5rem auto;
     }
+
+    /* Estilo para os labels */
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
     }
+
+    /* Inputs do formulário */
     input {
       width: 100%;
       padding: 0.75rem;
@@ -71,6 +93,8 @@
       border: 1px solid #ccc;
       border-radius: 8px;
     }
+
+    /* Botão principal */
     button {
       width: 100%;
       background-color: #007bff;
@@ -82,33 +106,45 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
+    /* Botão no estado hover */
     button:hover {
       background-color: #0056b3;
     }
+
+    /* Texto divisor "ou" */
     .divider {
       text-align: center;
       margin: 1rem 0;
       color: #666;
     }
+
+    /* Responsividade para telas pequenas */
     @media (max-width: 480px) {
       .container {
         padding: 1.2rem;
       }
     }
   </style>
+  <!-- Fim do CSS -->
 </head>
+
 <body>
+  <!-- Início da barra de navegação -->
   <nav>
     <a href="ecoworld.html">EcoWorld</a>
     <a href="perguntas.html">Perguntas</a>
     <a href="tarefas.html">Tarefas</a>
     <a href="creditos.html">Créditos</a>
   </nav>
+  <!-- Fim da barra de navegação -->
 
+  <!-- Início do container do formulário -->
   <div class="container" role="main" aria-label="Formulário de login EcoWorld">
     <h2>EcoWorld</h2>
     <img class="logo" src="assets/terra-removebg-preview 2.png" alt="Logo EcoWorld" width="100" />
 
+    <!-- Formulário de login -->
     <form id="login-form">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="seu@email.com" required />
@@ -121,41 +157,63 @@
 
     <div class="divider" aria-hidden="true">ou</div>
 
+    <!-- Botão para login com Google -->
     <button id="google-login" style="margin-bottom: 1rem;">Entrar com Google</button>
 
     <p>Não tem conta? <a href="#" id="criar-conta">Criar conta</a></p>
   </div>
+  <!-- Fim do container do formulário -->
 
-    <script>
-    // Inicializar Firebase com suas credenciais (substitua pelos seus dados)
+  <!-- Início do JavaScript -->
+  <script>
+    // Configuração do Firebase como as credenciais que estao em configuração de projeto
     const firebaseConfig = {
       apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
       authDomain: "ecoworld-39860.firebaseapp.com",
       projectId: "ecoworld-39860",
       storageBucket: "ecoworld-39860.firebasestorage.app",
       messagingSenderId: "237711066089",
-      appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178",
-      measurementId: "G-0FS1ZTKYMR"
+      appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Login com email e senha
+    // Função para validar o formato do email usando regex
+    function validarEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Evento para tratar o envio do formulário de login
     document.getElementById('login-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
+      e.preventDefault(); // evita o recarregamento da página
+      const email = document.getElementById('email').value.trim();
       const senha = document.getElementById('senha').value;
 
+      // Validação do email
+      if (!validarEmail(email)) {
+        alert('Por favor, insira um email válido.');
+        return;
+      }
+
+      // Tentativa de login com Firebase
       auth.signInWithEmailAndPassword(email, senha)
         .then(() => {
-          window.location.href = 'ecoworld.html'; // Redireciona após login
+          window.location.href = 'ecoworld.html'; // Redireciona após login bem sucedido
         })
         .catch(error => {
-          alert('Erro no login: ' + error.message);
+          // Tratamento dos erros mais comuns
+          if (error.code === 'auth/wrong-password') {
+            alert('Senha incorreta. Tente novamente.');
+          } else if (error.code === 'auth/user-not-found') {
+            alert('Usuário não encontrado. Verifique o email.');
+          } else {
+            alert('Erro no login: ' + error.message);
+          }
         });
     });
 
-    // Login com Google
+    // Evento para login com Google usando popup
     document.getElementById('google-login').addEventListener('click', function() {
       const provider = new firebase.auth.GoogleAuthProvider();
       auth.signInWithPopup(provider)
@@ -167,22 +225,54 @@
         });
     });
 
-    // Criar conta nova com email e senha
+    // Evento para criar conta nova
     document.getElementById('criar-conta').addEventListener('click', function(e) {
       e.preventDefault();
+
+      // Solicita email e senha via prompt
       const email = prompt('Digite seu email:');
       const senha = prompt('Digite uma senha (mínimo 6 caracteres):');
-      if (email && senha) {
-        auth.createUserWithEmailAndPassword(email, senha)
-          .then(() => {
-            alert('Conta criada com sucesso!');
-            window.location.href = 'ecoworld.html';
-          })
-          .catch(error => {
-            alert('Erro ao criar conta: ' + error.message);
-          });
+
+      // Valida campos obrigatórios
+      if (!email || !senha) {
+        alert('Email e senha são obrigatórios.');
+        return;
       }
+
+      // Valida email
+      if (!validarEmail(email)) {
+        alert('Por favor, insira um email válido.');
+        return;
+      }
+
+      // Cria usuário com email e senha no Firebase
+      auth.createUserWithEmailAndPassword(email, senha)
+        .then(() => {
+          alert('Conta criada com sucesso!');
+          window.location.href = 'ecoworld.html';
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            alert('Este email já está cadastrado. Faça login ou use outro email.');
+          } else {
+            alert('Erro ao criar conta: ' + error.message);
+          }
+        });
     });
   </script>
+  <!-- Fim do JavaScript -->
+
+  <!-- Integração do VLibras Widget para acessibilidade -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
+<!-- Fim da estrutura HTML -->
 </html>
