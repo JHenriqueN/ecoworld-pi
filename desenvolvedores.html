@@ -1,26 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<!-- INÍCIO DO HTML -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Desenvolvedores EcoWorld</title>
 
-  <!-- Importação da fonte Poppins do Google Fonts -->
+  <!-- Fontes e ícones -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Font Awesome para ícones (árvore, folha, etc.) -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-
-  <!-- Biblioteca AOS (Animações ao rolar a página) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <!-- INÍCIO DO CSS -->
   <style>
-    /* Reset e configurações básicas */
     * {
       margin: 0;
       padding: 0;
@@ -30,13 +20,11 @@
     html, body {
       height: 100%;
       font-family: 'Poppins', sans-serif;
+      background: #0a1f33;
+      color: #dceeff;
       overflow-x: hidden;
-      background: #0a1f33; /* Fundo azul escuro */
-      color: #dceeff;      /* Cor do texto azul claro */
-      position: relative;
     }
 
-    /* Camada de sobreposição no fundo para dar efeito */
     .overlay {
       position: fixed;
       top: 0; left: 0;
@@ -45,10 +33,9 @@
       z-index: -1;
     }
 
-    /* Container principal da página */
     .container {
       max-width: 600px;
-      background: rgba(8, 34, 58, 0.85); /* Fundo translúcido azul escuro */
+      background: rgba(8, 34, 58, 0.85);
       margin: 8vh auto;
       padding: 2.5rem 2rem;
       border-radius: 20px;
@@ -58,8 +45,11 @@
       z-index: 2;
     }
 
-    /* Título da página */
-    h2 {
+    .titulo-devs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       font-weight: 700;
       font-size: 2.5rem;
       margin-bottom: 1rem;
@@ -67,7 +57,13 @@
       text-shadow: 1px 1px 3px #123f5e;
     }
 
-    /* Ícones ecológicos */
+    .logo-devs {
+      width: 240px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 6px #1e6a8f;
+    }
+
     .eco-icons {
       font-size: 2.8rem;
       color: #88d4f5;
@@ -75,7 +71,6 @@
       letter-spacing: 0.15rem;
     }
 
-    /* Estilo dos cards de desenvolvedores */
     .dev {
       background: rgba(20, 50, 90, 0.8);
       margin: 1rem 0;
@@ -85,7 +80,6 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 3px 7px rgba(12, 45, 80, 0.9);
-      transition: background-color 0.3s ease;
     }
 
     .dev:hover {
@@ -100,7 +94,6 @@
       text-shadow: 0 0 2px #1b3b5a;
     }
 
-    /* Link do Instagram */
     .insta-link {
       color: #96e2ff;
       text-decoration: none;
@@ -108,7 +101,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: color 0.3s ease;
       font-size: 1rem;
     }
 
@@ -121,7 +113,6 @@
       color: #b7f3ff;
     }
 
-    /* Botão para voltar à página principal */
     .voltar {
       display: inline-block;
       margin-top: 2rem;
@@ -132,14 +123,12 @@
       border-radius: 12px;
       text-decoration: none;
       box-shadow: 0 0 8px #58b9da;
-      transition: background-color 0.3s ease;
     }
 
     .voltar:hover {
       background-color: #1d90b5;
     }
 
-    /* Botão Sair fixo no topo direito */
     #btn-sair {
       position: fixed;
       top: 15px;
@@ -151,25 +140,24 @@
       padding: 0.5rem 1.1rem;
       border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 8px #58b9da(231, 76, 60, 0.7);
-      transition: background-color 0.3s ease;
-      z-index: 10;
+      box-shadow: 0 0 8px #58b9da;
       font-family: 'Poppins', sans-serif;
       font-size: 1rem;
+      z-index: 10;
     }
 
     #btn-sair:hover {
       background-color: #1d90b5;
     }
 
-    /* Responsividade para celular */
     @media (max-width: 600px) {
       .container {
         margin: 5vh 1rem;
         padding: 1.8rem 1.4rem;
       }
-      h2 {
+      .titulo-devs {
         font-size: 2rem;
+        flex-direction: column;
       }
       .eco-icons {
         font-size: 2rem;
@@ -180,116 +168,93 @@
         align-items: flex-start;
         gap: 0.6rem;
       }
-      .insta-link {
-        font-size: 0.95rem;
-      }
     }
   </style>
-  <!-- FIM DO CSS -->
 </head>
 
 <body>
-  <!-- Sobreposição escura no fundo -->
   <div class="overlay"></div>
+  <button id="btn-sair">Sair</button>
 
-  <!-- Botão sair -->
-  <button id="btn-sair" aria-label="Sair do aplicativo">Sair</button>
-
-  <!-- INÍCIO DO CONTEÚDO PRINCIPAL -->
   <div class="container" data-aos="fade-up">
-    <h2>Desenvolvedores EcoWorld</h2>
+    <h2 class="titulo-devs">
+      Desenvolvedores EcoWorld
+      <img src="ec_1-removebg-preview.png" alt="Logo EcoWorld" class="logo-devs" />
+    </h2>
 
-    <!-- Ícones decorativos -->
     <div class="eco-icons">
       <i class="fas fa-tree"></i>
       <i class="fas fa-recycle"></i>
       <i class="fas fa-leaf"></i>
     </div>
 
-    <!-- Lista de desenvolvedores -->
     <div class="dev">
       <span class="dev-name">Alex Leal</span>
-      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank" rel="noopener noreferrer">
+      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Filipe Kallebe</span>
-      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank" rel="noopener noreferrer">
+      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Iranildo José</span>
-      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank" rel="noopener noreferrer">
+      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
     <div class="dev">
       <span class="dev-name">Joellyngthon Henrique</span>
-      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank" rel="noopener noreferrer">
+      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank">
         <i class="fab fa-instagram"></i>
       </a>
     </div>
 
-    <!-- Botão de voltar -->
     <a href="ecoworld.html" class="voltar">← Voltar para EcoWorld</a>
   </div>
-  <!-- FIM DO CONTEÚDO PRINCIPAL -->
 
-  <!-- INÍCIO DO JS -->
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script>
-    // Inicializa animações AOS quando a página carrega
     AOS.init({ duration: 1100, once: true });
 
-    // Configuração Firebase nas credenciais encontradas na configuração do  projeto
     const firebaseConfig = {
       apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
       authDomain: "ecoworld-39860.firebaseapp.com",
       projectId: "ecoworld-39860",
-      storageBucket: "ecoworld-39860.firebasestorage.app",
+      storageBucket: "ecoworld-39860.appspot.com",
       messagingSenderId: "237711066089",
       appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Botão sair - desloga usuário e redireciona para index.html
     document.getElementById('btn-sair').addEventListener('click', () => {
-      auth.signOut()
-        .then(() => {
-          alert('Você saiu do app.');
-          window.location.href = 'index.html'; // redireciona para index.html após logout
-        })
-        .catch(error => {
-          alert('Erro ao sair: ' + error.message);
-        });
+      auth.signOut().then(() => {
+        alert('Você saiu do app.');
+        window.location.href = 'index.html';
+      }).catch(error => {
+        alert('Erro ao sair: ' + error.message);
+      });
     });
   </script>
-  <!-- FIM DO JS -->
-   <!-- Integração do VLibras Widget -->
-  <!-- Início da integração do VLibras -->
+
+  <!-- VLibras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
+    <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
   </div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <!-- Fim da integração do VLibras -->
+  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
-   <!-- 100% privacy-first analytics -->
-<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-
+  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </body>
-<!-- FIM DO HTML -->
 </html>
