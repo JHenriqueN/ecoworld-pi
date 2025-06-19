@@ -1,260 +1,318 @@
+<!-- ✅ INÍCIO DO HTML -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Desenvolvedores EcoWorld</title>
+  <head>
+    <!-- Define a codificação de caracteres como UTF-8 (suporta acentos e caracteres especiais) -->
+    <meta charset="UTF-8" />
 
-  <!-- Fontes e ícones -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Garante que o layout será responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <!-- Título que aparecerá na aba do navegador -->
+    <title>Desenvolvedores EcoWorld</title>
 
-    html, body {
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background: #0a1f33;
-      color: #dceeff;
-      overflow-x: hidden;
-    }
+    <!-- Importa a fonte "Poppins" do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: linear-gradient(135deg, rgba(5,23,40,0.75), rgba(8,41,71,0.6));
-      z-index: -1;
-    }
+    <!-- Importa os ícones do Font Awesome (como o ícone do Instagram, árvore etc.) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    .container {
-      max-width: 600px;
-      background: rgba(8, 34, 58, 0.85);
-      margin: 8vh auto;
-      padding: 2.5rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(26, 84, 140, 0.6);
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
+    <!-- Biblioteca AOS para efeitos de animação ao rolar a página -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-    .titulo-devs {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-weight: 700;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #6fc3df;
-      text-shadow: 1px 1px 3px #123f5e;
-    }
+    <!-- ✅ INÍCIO DO CSS: estilos visuais da página -->
+    <style>
+      /* Remove margens e preenchimentos padrão dos elementos */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    .logo-devs {
-      width: 240px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 0 6px #1e6a8f;
-    }
+      /* Estilo global do corpo da página */
+      html, body {
+        height: 100%;
+        font-family: 'Poppins', sans-serif;
+        background: #0a1f33; /* azul escuro */
+        color: #dceeff;      /* texto azul claro */
+        overflow-x: hidden;
+      }
 
-    .eco-icons {
-      font-size: 2.8rem;
-      color: #88d4f5;
-      margin-bottom: 2rem;
-      letter-spacing: 0.15rem;
-    }
+      /* Sobreposição escura no fundo da tela */
+      .overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(135deg, rgba(5,23,40,0.75), rgba(8,41,71,0.6));
+        z-index: -1; /* Fica atrás do conteúdo */
+      }
 
-    .dev {
-      background: rgba(20, 50, 90, 0.8);
-      margin: 1rem 0;
-      padding: 1rem 1.4rem;
-      border-radius: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 3px 7px rgba(12, 45, 80, 0.9);
-    }
-
-    .dev:hover {
-      background-color: #1c3d63;
-      box-shadow: 0 0 15px #66bde0;
-    }
-
-    .dev-name {
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: #daf0ff;
-      text-shadow: 0 0 2px #1b3b5a;
-    }
-
-    .insta-link {
-      color: #96e2ff;
-      text-decoration: none;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .insta-link i {
-      font-size: 1.3rem;
-      filter: drop-shadow(1px 1px 1px #133b4f);
-    }
-
-    .insta-link:hover {
-      color: #b7f3ff;
-    }
-
-    .voltar {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.7rem 1.6rem;
-      background-color: #176b87;
-      color: #eefaff;
-      font-weight: 700;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 0 8px #58b9da;
-    }
-
-    .voltar:hover {
-      background-color: #1d90b5;
-    }
-
-    #btn-sair {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background-color: #176b87;
-      border: none;
-      color: white;
-      font-weight: 700;
-      padding: 0.5rem 1.1rem;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 8px #58b9da;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      z-index: 10;
-    }
-
-    #btn-sair:hover {
-      background-color: #1d90b5;
-    }
-
-    @media (max-width: 600px) {
+      /* Container central com conteúdo principal */
       .container {
-        margin: 5vh 1rem;
-        padding: 1.8rem 1.4rem;
+        max-width: 600px;
+        background: rgba(8, 34, 58, 0.85);
+        margin: 8vh auto;
+        padding: 2.5rem 2rem;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(26, 84, 140, 0.6);
+        text-align: center;
+        position: relative;
+        z-index: 2;
       }
+
+      /* Título e logo dos desenvolvedores */
       .titulo-devs {
-        font-size: 2rem;
-        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #6fc3df;
+        text-shadow: 1px 1px 3px #123f5e;
       }
+
+      /* Estilo da imagem/logo ao lado do título */
+      .logo-devs {
+        width: 240px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 0 6px #1e6a8f;
+      }
+
+      /* Ícones ecológicos no topo */
       .eco-icons {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
+        font-size: 2.8rem;
+        color: #88d4f5;
+        margin-bottom: 2rem;
+        letter-spacing: 0.15rem;
       }
+
+      /* Blocos com nome e link do desenvolvedor */
       .dev {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.6rem;
+        background: rgba(20, 50, 90, 0.8);
+        margin: 1rem 0;
+        padding: 1rem 1.4rem;
+        border-radius: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 3px 7px rgba(12, 45, 80, 0.9);
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div class="overlay"></div>
-  <button id="btn-sair">Sair</button>
+      /* Efeito ao passar o mouse nos blocos dos devs */
+      .dev:hover {
+        background-color: #1c3d63;
+        box-shadow: 0 0 15px #66bde0;
+      }
 
-  <div class="container" data-aos="fade-up">
-    <h2 class="titulo-devs">
-      Desenvolvedores EcoWorld
-      <img src="ec_1-removebg-preview.png" alt="Logo EcoWorld" class="logo-devs" />
-    </h2>
+      /* Nome do desenvolvedor */
+      .dev-name {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: #daf0ff;
+        text-shadow: 0 0 2px #1b3b5a;
+      }
 
-    <div class="eco-icons">
-      <i class="fas fa-tree"></i>
-      <i class="fas fa-recycle"></i>
-      <i class="fas fa-leaf"></i>
-    </div>
+      /* Estilo do link do Instagram */
+      .insta-link {
+        color: #96e2ff;
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        flex-direction: row;
+        justify-content: center; /* centraliza horizontalmente */
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        width: 100%; /* ocupa largura total do bloco .dev */
+        text-align: center;
+      }
 
-    <div class="dev">
-      <span class="dev-name">Alex Leal</span>
-      <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank">
-        <i class="fab fa-instagram"></i>
+      /* Ícone do Instagram */
+      .insta-link i {
+        font-size: 1.3rem;
+        filter: drop-shadow(1px 1px 1px #133b4f);
+      }
+
+      /* Cor ao passar o mouse no link */
+      .insta-link:hover {
+        color: #b7f3ff;
+      }
+
+      /* Botão para voltar à página principal */
+      .voltar {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.7rem 1.6rem;
+        background-color: #176b87;
+        color: #eefaff;
+        font-weight: 700;
+        border-radius: 12px;
+        text-decoration: none;
+        box-shadow: 0 0 8px #58b9da;
+      }
+
+      /* Efeito hover do botão voltar */
+      .voltar:hover {
+        background-color: #1d90b5;
+      }
+
+      /* Botão fixo de logout */
+      #btn-sair {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        background-color: #176b87;
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0.5rem 1.1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 0 8px #58b9da;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        z-index: 10;
+      }
+
+      /* Efeito hover no botão sair */
+      #btn-sair:hover {
+        background-color: #1d90b5;
+      }
+
+      /* Estilos para dispositivos com largura menor que 600px */
+      @media (max-width: 600px) {
+        .container {
+          margin: 5vh 1rem;
+          padding: 1.8rem 1.4rem;
+        }
+
+        .titulo-devs {
+          font-size: 2rem;
+          flex-direction: column;
+        }
+
+        .eco-icons {
+          font-size: 2rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .dev {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.6rem;
+        }
+      }
+    </style>
+    <!-- ✅ FIM DO CSS -->
+  </head>
+
+  <body>
+    <!-- Fundo sobreposto com gradiente escuro -->
+    <div class="overlay"></div>
+
+    <!-- Botão de sair do sistema -->
+    <button id="btn-sair">Sair</button>
+
+    <!-- Container principal com conteúdo -->
+    <div class="container" data-aos="fade-up">
+      <!-- Título + imagem -->
+      <h2 class="titulo-devs">
+        Desenvolvedores EcoWorld
+        <img src="ec_1-removebg-preview.png" alt="Logo EcoWorld" class="logo-devs" />
+      </h2>
+
+      <!-- Ícones ilustrativos -->
+      <div class="eco-icons">
+        <i class="fas fa-tree"></i>
+        <i class="fas fa-recycle"></i>
+        <i class="fas fa-leaf"></i>
+      </div>
+
+      <!-- Lista de desenvolvedores com link para Instagram -->
+      <div class="dev">
+        <a class="insta-link" href="https://www.instagram.com/alexleal_fs/" target="_blank">
+        <span class="dev-name">Alex Leal</span>
+          <i class="fab fa-instagram"></i>
       </a>
+      </div>
+
+      <div class="dev">
+        <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank">
+        <span class="dev-name">Filipe Kallebe</span>
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+
+      <div class="dev">
+        <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank">
+        <span class="dev-name">Iranildo José</span>
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+
+      <div class="dev">
+        <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank">
+        <span class="dev-name">Joellyngthon Henrique</span>
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+
+      <!-- Botão de voltar à página inicial -->
+      <a href="ecoworld.html" class="voltar">← Voltar para EcoWorld</a>
     </div>
 
-    <div class="dev">
-      <span class="dev-name">Filipe Kallebe</span>
-      <a class="insta-link" href="https://www.instagram.com/kallebe07_/" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-    </div>
+    <!-- ✅ INÍCIO DO JAVASCRIPT -->
+    <!-- Scripts externos: AOS para animações -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-    <div class="dev">
-      <span class="dev-name">Iranildo José</span>
-      <a class="insta-link" href="https://www.instagram.com/iranildojose45/" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-    </div>
+    <!-- Scripts do Firebase para autenticação -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
-    <div class="dev">
-      <span class="dev-name">Joellyngthon Henrique</span>
-      <a class="insta-link" href="https://www.instagram.com/jhnhenriquejhn/" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-    </div>
+    <script>
+      // Inicializa as animações da biblioteca AOS
+      AOS.init({ duration: 1100, once: true });
 
-    <a href="ecoworld.html" class="voltar">← Voltar para EcoWorld</a>
-  </div>
+      // Configurações do Firebase do seu projeto
+      const firebaseConfig = {
+        apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
+        authDomain: "ecoworld-39860.firebaseapp.com",
+        projectId: "ecoworld-39860",
+        storageBucket: "ecoworld-39860.appspot.com",
+        messagingSenderId: "237711066089",
+        appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178"
+      };
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script>
-    AOS.init({ duration: 1100, once: true });
+      // Inicializa o Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDtjVFdsz9EhoXayy8YcsDqZWYjmQj2G2g",
-      authDomain: "ecoworld-39860.firebaseapp.com",
-      projectId: "ecoworld-39860",
-      storageBucket: "ecoworld-39860.appspot.com",
-      messagingSenderId: "237711066089",
-      appId: "1:237711066089:web:0d5d1ec07a7c9bf5e1c178"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    document.getElementById('btn-sair').addEventListener('click', () => {
-      auth.signOut().then(() => {
-        alert('Você saiu do app.');
-        window.location.href = 'index.html';
-      }).catch(error => {
-        alert('Erro ao sair: ' + error.message);
+      // Evento de clique no botão "Sair"
+      document.getElementById('btn-sair').addEventListener('click', () => {
+        auth.signOut().then(() => {
+          alert('Você saiu do app.');
+          window.location.href = 'index.html'; // Redireciona para a tela de login
+        }).catch(error => {
+          alert('Erro ao sair: ' + error.message);
+        });
       });
-    });
-  </script>
+    </script>
 
-  <!-- VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    <!-- Widget de acessibilidade VLibras -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
 
-  <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-</body>
+    <!-- Análise de acesso com Simple Analytics -->
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <!-- ✅ FIM DO JAVASCRIPT -->
+  </body>
 </html>
+<!-- ✅ FIM DO HTML -->
